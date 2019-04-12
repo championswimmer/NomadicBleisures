@@ -6,6 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/signika_negative</item>
+        <item name="android:titleTextStyle">@style/TextAppearance.Title</item>
+    </style>
+
+    <style name="TextAppearance.Title" parent="">
+        <item name="android:fontFamily">@font/signika_negative_semibold</item>
     </style>
 
 </resources>
