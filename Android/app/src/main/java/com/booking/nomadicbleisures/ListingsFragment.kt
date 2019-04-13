@@ -17,7 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ListingsFragment: Fragment() {
+class ListingsFragment : Fragment() {
 
     private lateinit var rootView: View
 
@@ -29,8 +29,8 @@ class ListingsFragment: Fragment() {
             HOTELS, COWORKING
         }
 
-        fun newInstance(searchType: SearchType) {
-            ListingsFragment().apply {
+        fun newInstance(searchType: SearchType): ListingsFragment {
+            return ListingsFragment().apply {
                 arguments = Bundle().apply { putString(SEARCH_TYPE, searchType.name) }
             }
         }
