@@ -3,6 +3,7 @@ package com.booking.nomadicbleisures.network
 import com.booking.nomadicbleisures.network.interfaces.CoworkingApi
 import com.booking.nomadicbleisures.network.interfaces.HotelsApi
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -11,8 +12,12 @@ object ApiClient {
     val CITY_ID_MUMBAI = "-2092174"
     val CITY_ID_DENPASAR = "-2676772"
 
+
+    private val interceptor = HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) }
+
     private val okHttpClient =
         OkHttpClient.Builder()
+            .addInterceptor(interceptor)
             .build()
 
     private val retrofit =

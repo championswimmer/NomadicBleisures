@@ -8,6 +8,6 @@ import retrofit2.http.Query
 
 interface CoworkingApi {
 
-    @POST("coworking-spaces")
+    @GET("coworking-places")
     fun getCoworkingSpaces(@Query("city_ids") cityId: String): Call<List<Coworking>>
 }

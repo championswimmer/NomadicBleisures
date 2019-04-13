@@ -57,7 +57,9 @@ class ListingsFragment : Fragment() {
                         }
                     }
 
-                    override fun onFailure(call: Call<List<Coworking>>, t: Throwable) {}
+                    override fun onFailure(call: Call<List<Coworking>>, t: Throwable) {
+
+                    }
                 })
             }
             Companion.SearchType.HOTELS -> {

@@ -9,6 +9,6 @@ import retrofit2.http.Query
 
 interface HotelsApi {
 
-    @POST("hotels")
+    @GET("hotels")
     fun getHotels(@Query("city_ids") cityId: String): Call<List<Hotel>>
 }
