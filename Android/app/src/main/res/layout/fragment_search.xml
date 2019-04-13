@@ -3,7 +3,7 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="#eeeeee">
 
     <LinearLayout
@@ -25,7 +25,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/signika_negative"
                         android:text="Welcome, Prempal!"
-                        android:textSize="20sp"
+                        android:textSize="22sp"
                         android:layout_marginTop="20dp"
                         android:layout_marginLeft="16dp"
                         android:focusable="true"
@@ -41,7 +41,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     app:cardCornerRadius="6dp"
-                    app:cardElevation="10dp">
+                    android:layout_marginBottom="12dp">
 
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -74,8 +74,18 @@
             </androidx.cardview.widget.CardView>
         </FrameLayout>
 
-        <include layout="@layout/item_city"/>
+        <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"/>
 
-        <include layout="@layout/item_city"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/llCityList"/>
+
     </LinearLayout>
 </ScrollView>
