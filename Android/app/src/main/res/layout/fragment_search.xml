@@ -85,7 +85,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/llCityList"/>
+                android:id="@+id/llCityList"
+                android:visibility="gone">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/signika_negative"
+                    android:text="Recommended for you"
+                    android:textSize="22sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="@android:color/black"/>
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

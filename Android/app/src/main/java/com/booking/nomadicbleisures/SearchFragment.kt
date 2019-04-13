@@ -26,6 +26,7 @@ class SearchFragment: Fragment() {
         Handler().postDelayed({
             fetchPopularCities()
             view.progressBar.visibility = View.GONE
+            view.llCityList.visibility = View.VISIBLE
         }, 1000)
 
         return view
@@ -40,7 +41,8 @@ class SearchFragment: Fragment() {
             cityView.cityTitle.text = city.name
             cityView.cityPrice.text = "$${city.price}"
             cityView.cityWeather.text = "${city.temperature}C"
-            cityView.cityInternet.text = "${city.internetSpeed.toShort()}mbps"
+            cityView.cityInternet.text = "${city.internetSpeed}mbps"
+            cityView.cityNomadScore.text = "${Math.round(city.nomadScore * 10.0) / 10.0}/5"
             Picasso.get().load("https://nomadlist.com${city.image}").into(cityView.cityImage);
             llCityList.addView(cityView)
         }
