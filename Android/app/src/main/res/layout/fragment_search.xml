@@ -49,7 +49,8 @@
                         android:orientation="vertical"
                         android:layout_margin="12dp">
 
-                    <EditText
+                    <AutoCompleteTextView
+                            android:id="@+id/et_destination"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -57,10 +58,38 @@
                             />
 
                     <EditText
+                            android:id="@+id/et_dates"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
+                            android:focusable="false"
+                            android:editable="false"
                             android:hint="Select dates"/>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <TextView
+                                android:text="Hotels"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <androidx.appcompat.widget.SwitchCompat
+                                android:checked="false"
+                                android:paddingStart="4dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:text="Co-working"
+                                android:layout_weight="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
 
                     <Button
                             android:layout_width="match_parent"
