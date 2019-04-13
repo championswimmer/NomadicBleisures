@@ -8,13 +8,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
 
+    val CITY_ID_MUMBAI = "-2092174"
+    val CITY_ID_DENPASAR = "-2676772"
+
     private val okHttpClient =
         OkHttpClient.Builder()
             .build()
 
     private val retrofit =
         Retrofit.Builder()
-            .baseUrl("https://distribution-xml.booking.com/2.4/json/")
+            .baseUrl("http://192.168.1.10:8080/api/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
