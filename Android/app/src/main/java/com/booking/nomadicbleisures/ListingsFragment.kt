@@ -48,7 +48,7 @@ class ListingsFragment : Fragment() {
     private fun fetchListings() {
         when (searchType) {
             Companion.SearchType.COWORKING -> {
-                ApiClient.coworkingApi.getCoworkingSpaces(ApiClient.CITY_ID_DENPASAR).enqueue(object: Callback<List<Coworking>> {
+                ApiClient.coworkingApi.getCoworkingSpaces(ApiClient.CITY_ID_MUMBAI).enqueue(object: Callback<List<Coworking>> {
                     override fun onResponse(call: Call<List<Coworking>>, response: Response<List<Coworking>>) {
                         rootView.progressBar.visibility = View.GONE
                         rootView.llListings.visibility = View.VISIBLE
@@ -93,7 +93,7 @@ class ListingsFragment : Fragment() {
         for (coworking in coworkingSpaces) {
             val listingView = LayoutInflater.from(activity!!).inflate(R.layout.item_listing, llListings, false)
             listingView.listingTitle.text = coworking.name
-            listingView.listingPrice.text = "${coworking.currency}${coworking.monthlyPrice} /mo"
+            listingView.listingPrice.text = "${coworking.currency}${coworking.monthlyPrice.toFloat().toInt()} /mo"
             listingView.listingRating.text = "${Math.round(coworking.rating * 10.0) / 10.0}/5"
             listingView.listingSubtitle.text = "${coworking.numHotels} hotels nearby"
             Picasso.get().load(coworking.image).into(listingView.listingImage);
