@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
-class ListingsFragment: Fragment() {
+class ListingsFragment : Fragment() {
 
     companion object {
 
@@ -16,8 +16,8 @@ class ListingsFragment: Fragment() {
             HOTELS, COWORKING
         }
 
-        fun newInstance(searchType: SearchType) {
-            ListingsFragment().apply {
+        fun newInstance(searchType: SearchType): ListingsFragment {
+            return ListingsFragment().apply {
                 arguments = Bundle().apply { putString(SEARCH_TYPE, searchType.name) }
             }
         }

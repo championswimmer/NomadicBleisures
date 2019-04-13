@@ -3,15 +3,12 @@ package com.booking.nomadicbleisures
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_search.*
-
 import com.booking.nomadicbleisures.models.NomadCity
 import com.booking.nomadicbleisures.utils.IOUtils
 import com.google.gson.Gson
@@ -57,6 +54,14 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         et_dates.setOnClickListener {
             et_dates.text = null
             DatePickerDialog(context, this, 2019, 3, 13).show()
+        }
+
+        btn_search.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.replace(
+                R.id.container, ListingsFragment.newInstance(
+                    ListingsFragment.Companion.SearchType.HOTELS
+                )
+            )?.addToBackStack(null)?.commit()
         }
     }
 
