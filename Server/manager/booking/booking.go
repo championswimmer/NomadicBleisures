@@ -26,7 +26,7 @@ func GetClient() *http.Client {
 	return client
 }
 
-func MakeRequest(request Request) (response interface{}, err error) {
+func MakeRequest(request Request) (response map[string]interface{}, err error) {
 	client := GetClient()
 	if err != nil {
 		return response, err
