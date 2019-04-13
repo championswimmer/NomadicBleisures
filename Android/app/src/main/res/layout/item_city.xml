@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                   android:orientation="vertical"
+                                   android:layout_width="match_parent"
+                                   android:layout_height="200dp"
+                                   android:layout_margin="12dp"
+                                   app:cardElevation="6dp"
+                                   app:cardCornerRadius="6dp">
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark"/>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/signika_negative"
+                    android:text="Bali, Indonesia"
+                    android:textSize="22sp"
+                    android:layout_marginTop="20dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="@android:color/white"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginTop="4dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="30c"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="16dp"
+                        android:textColor="@android:color/white"
+                        android:drawableLeft="@drawable/ic_cloud"
+                        android:drawablePadding="6dp"
+                        android:fontFamily="@font/signika_negative"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2mbps"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="16dp"
+                        android:textColor="@android:color/white"
+                        android:drawableLeft="@drawable/ic_wifi"
+                        android:drawablePadding="6dp"
+                        android:fontFamily="@font/signika_negative"/>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="12dp">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₹500"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:fontFamily="@font/signika_negative"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Per day"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/white"
+                    android:fontFamily="@font/signika_negative"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
