@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/NomadicBleisures/Server/initapp"
 	"github.com/NomadicBleisures/Server/router"
 	"github.com/sirupsen/logrus"
 	"github.com/vrecan/death"
@@ -10,6 +11,7 @@ import (
 )
 
 func main() {
+	initapp.Init()
 	r, err := router.GetRouter()
 	if err != nil {
 		logrus.Panic("STOP")
