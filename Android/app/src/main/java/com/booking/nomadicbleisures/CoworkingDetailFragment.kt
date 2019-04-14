@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.booking.nomadicbleisures.models.Coworking
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_coworking_detail.*
-import kotlinx.android.synthetic.main.item_listing.view.*
+import kotlinx.android.synthetic.main.fragment_coworking_detail.view.*
 
 class CoworkingDetailFragment: Fragment() {
 
@@ -30,6 +30,8 @@ class CoworkingDetailFragment: Fragment() {
         rootView.listingTitle.text = coworking.name
         rootView.listingPrice.text = "${coworking.currency}${coworking.monthlyPrice.toFloat().toInt()} /mo"
         rootView.listingRating.text = "${Math.round(coworking.rating * 10.0) / 10.0}"
+
+        rootView.comboView.setup(coworking, coworking.recommendedHotel)
         return rootView
     }
 }
