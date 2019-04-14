@@ -10,4 +10,5 @@ data class Hotel(@SerializedName("image") val image: String,
                  @SerializedName("rating") val rating: Float,
                  @SerializedName("price") val price: String,
                  @SerializedName("currency") val currency: String,
+                 @SerializedName("deeplink") val deeplink: String,
                  @SerializedName("num_coworking") val numCoworking: Int): Parcelable
