@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:id="@+id/listingImage"
+                android:scaleType="centerCrop"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/listingTitle"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:text="Social Delhi"
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/signika_negative"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/listingPrice"
+                android:textSize="20sp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:text="INR1000 /mo"
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/signika_negative"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/listingRating"
+                android:textSize="20sp"
+                android:text="5"
+                android:drawableRight="@drawable/ic_star"
+                android:drawablePadding="8dp"
+                android:textStyle="bold"
+                android:layout_margin="16dp"
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/signika_negative"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/listingOverview"
+                android:textSize="16sp"
+                android:layout_margin="16dp"
+                android:text="Social Offline is one of India’s hippest coworking chains. This branch located in Lower Parel is one of two workspaces social has in Mumbai. Situated in a converted factory with a very industrial feel this space blend’s both works and plays together, combining the very best elements of an office setting as well as that of a social café setting.
+
+This space has a unique membership plan, where members can use their entire 5,000 rupee membership fee as credit at the café/Bar. Allowing members to indulge in the many coffee, alcoholic beverages and delicious food options on offer.
+
+Social offers meeting room facilities, lightning fast internet, printers, scanners, as well as an extensive open plan work area. Whether you’re a free thinker or freelancer, you’re bound to feel at home in this highly creative and collaborative space.
+
+For those on the move Social Offline 5 locations across India, two in Mumbai and New Delhi, as well as one in Bengaluru (Bangalore)."
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/signika_negative"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Opening hours"
+                android:textStyle="bold"
+                android:layout_margin="16dp"
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/signika_negative"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="Mon-Fri"
+                android:textStyle="bold"
+                android:layout_marginLeft="16dp"
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/signika_negative"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="9:00 am - 6:00 pm"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="16dp"
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/signika_negative"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="Sat"
+                android:layout_marginTop="12dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="16dp"
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/signika_negative"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="4dp"
+                android:text="Closed"
+                android:layout_marginLeft="16dp"
+                android:textColor="@android:color/holo_red_dark"
+                android:fontFamily="@font/signika_negative"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="Sun"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="16dp"
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/signika_negative"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="Closed"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="16dp"
+                android:textColor="@android:color/holo_red_dark"
+                android:fontFamily="@font/signika_negative"/>
+    </LinearLayout>
+
+</ScrollView>
