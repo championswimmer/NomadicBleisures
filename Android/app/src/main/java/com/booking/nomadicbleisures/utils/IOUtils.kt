@@ -1,6 +1,9 @@
 package com.booking.nomadicbleisures.utils
 
 import android.content.Context
+import com.booking.nomadicbleisures.models.NomadCity
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.io.IOException
 
 object IOUtils {
@@ -20,5 +23,12 @@ object IOUtils {
         }
 
         return json
+    }
+
+    fun loadCities(context: Context): List<NomadCity> {
+        val listType = object : TypeToken<List<NomadCity>>() {}.type
+        val cityList = Gson().fromJson(IOUtils.loadJSONFromAsset(context, "cities.json"), listType)
+                as List<NomadCity>
+        return cityList
     }
 }

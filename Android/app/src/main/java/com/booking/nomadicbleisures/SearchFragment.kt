@@ -1,6 +1,7 @@
 package com.booking.nomadicbleisures
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -87,6 +88,9 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             cityView.cityInternet.text = "${city.internetSpeed}mbps"
             cityView.cityNomadScore.text = "${Math.round(city.nomadScore * 10.0) / 10.0}/5"
             Picasso.get().load("https://nomadlist.com${city.image}").into(cityView.cityImage);
+            cityView.setOnClickListener {
+                startActivity(Intent(context, CityActivity::class.java))
+            }
             llCityList.addView(cityView)
         }
     }
