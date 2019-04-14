@@ -83,7 +83,7 @@ class ListingsFragment : Fragment() {
         for (hotel in hotels) {
             val listingView = LayoutInflater.from(activity!!).inflate(R.layout.item_listing, llListings, false)
             listingView.listingTitle.text = hotel.name
-            listingView.listingPrice.text = "${hotel.currency}${hotel.price.toFloat().toInt()}"
+            listingView.listingPrice.text = "${hotel.currency} ${hotel.price.toFloat().toInt()}"
             listingView.listingRating.text = "${Math.round(hotel.rating * 10.0) / 10.0}"
             listingView.listingSubtitle.text = "${hotel.numCoworking} coworking spaces nearby"
             listingView.setOnClickListener {
@@ -102,7 +102,7 @@ class ListingsFragment : Fragment() {
         for (coworking in coworkingSpaces) {
             val listingView = LayoutInflater.from(activity!!).inflate(R.layout.item_listing, llListings, false)
             listingView.listingTitle.text = coworking.name
-            listingView.listingPrice.text = "${coworking.currency}${coworking.monthlyPrice.toFloat().toInt()} /mo"
+            listingView.listingPrice.text = "${coworking.currency} ${coworking.monthlyPrice.toFloat().toInt()} /mo"
             listingView.listingRating.text = "${Math.round(coworking.rating * 10.0) / 10.0}"
             listingView.listingSubtitle.text = "${coworking.numHotels} hotels nearby"
             Picasso.get().load(coworking.image).into(listingView.listingImage);
