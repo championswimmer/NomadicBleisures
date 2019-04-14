@@ -1,5 +1,7 @@
 package com.booking.nomadicbleisures
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,7 @@ import kotlinx.android.synthetic.main.item_listing.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class ListingsFragment : Fragment() {
 
@@ -83,6 +86,13 @@ class ListingsFragment : Fragment() {
             listingView.listingPrice.text = "$100"
             listingView.listingRating.text = "${Math.round(hotel.rating * 10.0) / 10.0}"
             listingView.listingSubtitle.text = "${hotel.numCoworking} coworking spaces nearby"
+            listingView.setOnClickListener {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW, Uri.parse(hotel.deeplink)
+                    )
+                )
+            }
             Picasso.get().load(hotel.image).into(listingView.listingImage);
             llListings.addView(listingView)
         }
