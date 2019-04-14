@@ -60,7 +60,8 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         btn_search.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.add(
                 R.id.container, ListingsFragment.newInstance(
-                    ListingsFragment.Companion.SearchType.COWORKING
+                    if (toggle_switch.isChecked) ListingsFragment.Companion.SearchType.COWORKING
+                    else ListingsFragment.Companion.SearchType.HOTELS
                 )
             )?.addToBackStack(null)?.commit()
         }
