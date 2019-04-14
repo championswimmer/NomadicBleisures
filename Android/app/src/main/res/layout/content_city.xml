@@ -8,11 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".CityActivity">
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:text="@string/large_text"/>
-
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <include layout="@layout/card_city_details"/>
+    </LinearLayout>
 </androidx.core.widget.NestedScrollView>
