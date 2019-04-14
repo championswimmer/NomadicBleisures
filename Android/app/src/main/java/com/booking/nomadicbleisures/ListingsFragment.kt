@@ -82,7 +82,7 @@ class ListingsFragment : Fragment() {
             val listingView = LayoutInflater.from(activity!!).inflate(R.layout.item_listing, llListings, false)
             listingView.listingTitle.text = hotel.name
             listingView.listingPrice.text = "$100"
-            listingView.listingRating.text = "${Math.round(hotel.rating * 10.0) / 10.0}/5"
+            listingView.listingRating.text = "${Math.round(hotel.rating * 10.0) / 10.0}"
             listingView.listingSubtitle.text = "${hotel.numCoworking} coworking spaces nearby"
             Picasso.get().load(hotel.image).into(listingView.listingImage);
             llListings.addView(listingView)

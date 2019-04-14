@@ -10,7 +10,7 @@ import com.booking.nomadicbleisures.models.Hotel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_combo.view.*
 
-class ComboView(val ctx: Context, attrs: AttributeSet): FrameLayout(ctx, attrs) {
+class ComboView(val ctx: Context, attrs: AttributeSet?): FrameLayout(ctx, attrs) {
 
     private lateinit var rootview: View
 
