@@ -18,7 +18,8 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import kotlinx.android.synthetic.main.item_city.view.*
-
+import android.view.animation.AnimationUtils
+import android.view.animation.Animation
 
 class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
@@ -34,6 +35,14 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_search, container, false)
+
+        val slide_up = AnimationUtils.loadAnimation(
+            activity!!,
+            com.booking.nomadicbleisures.R.anim.slide_up
+        )
+        Handler().postDelayed({
+            view.title.startAnimation(slide_up)
+        }, 100)
 
         view.progressBar.visibility = View.VISIBLE
         Handler().postDelayed({

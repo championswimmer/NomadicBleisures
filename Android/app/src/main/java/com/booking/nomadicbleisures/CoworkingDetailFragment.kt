@@ -28,7 +28,7 @@ class CoworkingDetailFragment: Fragment() {
         coworking = arguments!!.getParcelable("detail")!!
         Picasso.get().load(coworking.image).into(rootView.listingImage)
         rootView.listingTitle.text = coworking.name
-        rootView.listingPrice.text = "${coworking.currency}${coworking.monthlyPrice.toFloat().toInt()} /mo"
+        rootView.listingPrice.text = "${coworking.currency} ${coworking.monthlyPrice.toFloat().toInt()} /mo"
         rootView.listingRating.text = "${Math.round(coworking.rating * 10.0) / 10.0}"
 
         rootView.comboView.setup(coworking, coworking.recommendedHotel)

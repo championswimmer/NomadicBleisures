@@ -8,12 +8,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".CityActivity">
+
     <LinearLayout
             android:id="@+id/llComboList"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <include layout="@layout/card_city_details"/>
+
+        <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
 

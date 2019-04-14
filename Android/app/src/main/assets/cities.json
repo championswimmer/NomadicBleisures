@@ -36,46 +36,8 @@
     "internet_score": 5,
     "leisure_quality": "4.5",
     "safety_level": 4,
-    "nomad_score_normalized": 2.3597726981571485
-  },
-  {
-    "region": "Asia",
-    "population": "11978450",
-    "descriptionFromReview": "null",
-    "short_slug": "mumbai",
-    "long_slug": "mumbai-india",
-    "users_now_count": 2,
-    "users_now_count_est": 6,
-    "users_been_count": 136,
-    "slug": "mumbai-india",
-    "image": "/assets/img/cities/mumbai-india-600px.jpg",
-    "name": "Mumbai",
-    "air_quality_now": 120,
-    "air_quality": null,
-    "latitude": "19.0759837",
-    "longitude": "72.8776559",
-    "country": "India",
-    "country_code": "IN",
-    "country_slug": "india",
-    "state_code": "",
-    "state": "",
-    "internet_speed": 9,
-    "air_quality_score": 2.33,
-    "air_quality_now_score": 1.2857142857142856,
-    "rank": 446,
-    "weather_icon": "wi-day-fog",
-    "weather_emoji": "🌫",
-    "temperatureC": "35",
-    "temperatureF": "95.04",
-    "temperatureC_feels_like": 50,
-    "temperatureF_feels_like": 122,
-    "short_term_cost_in_usd": 1299,
-    "nomad_score": 2.8395936753278535,
-    "cost_score": 4.51595,
-    "internet_score": 2.742105263157894,
-    "leisure_quality": 3,
-    "safety_level": 3.16,
-    "nomad_score_normalized": 0.7397710084074091
+    "nomad_score_normalized": 2.3597726981571485,
+    "city_id": "-2676772"
   },
   {
     "region": "Asia",
@@ -114,7 +76,8 @@
     "internet_score": 5,
     "leisure_quality": 4,
     "safety_level": 4,
-    "nomad_score_normalized": 2.2038215302809547
+    "nomad_score_normalized": 2.2038215302809547,
+    "city_id": "-2676772"
   },
   {
     "region": "Latin America",
@@ -153,7 +116,48 @@
     "internet_score": 2.4947368421052634,
     "leisure_quality": 5,
     "safety_level": 3,
-    "nomad_score_normalized": 2.036666774742494
+    "nomad_score_normalized": 2.036666774742494,
+    "city_id": "-2676772"
+  },
+  {
+    "region": "Asia",
+    "population": "11978450",
+    "descriptionFromReview": "null",
+    "short_slug": "mumbai",
+    "long_slug": "mumbai-india",
+    "users_now_count": 2,
+    "users_now_count_est": 6,
+    "users_been_count": 136,
+    "slug": "mumbai-india",
+    "image": "/assets/img/cities/mumbai-india-600px.jpg",
+    "name": "Mumbai",
+    "air_quality_now": 120,
+    "air_quality": null,
+    "latitude": "19.0759837",
+    "longitude": "72.8776559",
+    "country": "India",
+    "country_code": "IN",
+    "country_slug": "india",
+    "state_code": "",
+    "state": "",
+    "internet_speed": 9,
+    "air_quality_score": 2.33,
+    "air_quality_now_score": 1.2857142857142856,
+    "rank": 446,
+    "weather_icon": "wi-day-fog",
+    "weather_emoji": "🌫",
+    "temperatureC": "35",
+    "temperatureF": "95.04",
+    "temperatureC_feels_like": 50,
+    "temperatureF_feels_like": 122,
+    "short_term_cost_in_usd": 1299,
+    "nomad_score": 3.8395936753278535,
+    "cost_score": 4.51595,
+    "internet_score": 2.742105263157894,
+    "leisure_quality": 3,
+    "safety_level": 3.16,
+    "nomad_score_normalized": 0.7397710084074091,
+    "city_id": "-2092174"
   },
   {
     "region": "Asia",
@@ -192,7 +196,8 @@
     "internet_score": 5,
     "leisure_quality": 3,
     "safety_level": 5,
-    "nomad_score_normalized": 2.0205588771735763
+    "nomad_score_normalized": 2.0205588771735763,
+    "city_id": "-2676772"
   },
   {
     "region": "Europe",
@@ -231,6 +236,7 @@
     "internet_score": 5,
     "leisure_quality": 4,
     "safety_level": 4,
-    "nomad_score_normalized": 1.9387810714892184
+    "nomad_score_normalized": 1.9387810714892184,
+    "city_id": "-2676772"
   }
 ]

@@ -2,6 +2,7 @@ package com.booking.nomadicbleisures
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.booking.nomadicbleisures.models.Combo
@@ -21,6 +22,8 @@ import retrofit2.Response
 
 class CityActivity : AppCompatActivity() {
 
+    private lateinit var cityId: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_city)
@@ -39,6 +42,7 @@ class CityActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         intent!!.getParcelableExtra<NomadCity>("detail").apply {
+            this@CityActivity.cityId = cityId
             setSupportActionBar(toolbar.apply {
                 title = "$name $weatherEmoji $temperature°C"
             })
@@ -48,7 +52,7 @@ class CityActivity : AppCompatActivity() {
             tv_tempC.text = "$temperatureFeels°C"
         }
 
-        ApiClient.combosApi.getCombos(ApiClient.CITY_ID_DENPASAR).enqueue(object : Callback<List<Combo>> {
+        ApiClient.combosApi.getCombos(cityId).enqueue(object : Callback<List<Combo>> {
             override fun onResponse(call: Call<List<Combo>>, response: Response<List<Combo>>) {
                 response.body()?.let {
                     showCombos(it)
@@ -61,6 +65,7 @@ class CityActivity : AppCompatActivity() {
     }
 
     private fun showCombos(combos: List<Combo>) {
+        progressBar.visibility = View.GONE
         for (combo in combos) {
             val comboView = ComboView(this, null)
             comboView.setup(combo.coworking, combo.hotel)

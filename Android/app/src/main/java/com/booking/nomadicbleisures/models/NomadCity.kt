@@ -15,4 +15,5 @@ data class NomadCity(@SerializedName("name") val name: String,
                      @SerializedName("nomad_score") val nomadScore: Float,
                      @SerializedName("safety_level") val safetyLevel: Float,
                      @SerializedName("short_term_cost_in_usd") val price: Int,
-                     @SerializedName("image") val image: String): Parcelable
+                     @SerializedName("image") val image: String,
+                     @SerializedName("city_id") val cityId: String): Parcelable

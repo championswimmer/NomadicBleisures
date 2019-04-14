@@ -21,10 +21,11 @@
                     android:background="@color/colorPrimaryDark">
 
                 <TextView
+                        android:id="@+id/title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/signika_negative"
-                        android:text="Welcome, Prempal!"
+                        android:text="Welcome Nomad, Prempal!"
                         android:textSize="22sp"
                         android:layout_marginTop="20dp"
                         android:layout_marginLeft="16dp"
