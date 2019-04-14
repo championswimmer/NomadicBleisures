@@ -86,6 +86,17 @@ class ListingsFragment : Fragment() {
             listingView.listingPrice.text = "${hotel.currency} ${hotel.price.toFloat().toInt()}"
             listingView.listingRating.text = "${Math.round(hotel.rating * 10.0) / 10.0}"
             listingView.listingSubtitle.text = "${hotel.numCoworking} coworking spaces nearby"
+            listingView.listingSubtitle.setOnClickListener {
+                activity?.supportFragmentManager?.beginTransaction()?.apply {
+                    add(
+                        R.id.container, ListingsFragment.newInstance(
+                            ListingsFragment.Companion.SearchType.COWORKING
+                        )
+                    )
+                    addToBackStack(null)
+                    commit()
+                }
+            }
             listingView.setOnClickListener {
                 startActivity(
                     Intent(
