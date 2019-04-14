@@ -11,6 +11,8 @@ data class NomadCity(@SerializedName("name") val name: String,
                      @SerializedName("air_quality_score") val airQualityScore: Float,
                      @SerializedName("weather_emoji") val weatherEmoji: String,
                      @SerializedName("temperatureC") val temperature: String,
+                     @SerializedName("temperatureC_feels_like") val temperatureFeels: String,
                      @SerializedName("nomad_score") val nomadScore: Float,
+                     @SerializedName("safety_level") val safetyLevel: Float,
                      @SerializedName("short_term_cost_in_usd") val price: Int,
                      @SerializedName("image") val image: String): Parcelable

@@ -11,6 +11,7 @@ import com.booking.nomadicbleisures.utils.IOUtils
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_city.*
+import kotlinx.android.synthetic.main.card_city_details.*
 import kotlinx.android.synthetic.main.content_city.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -42,6 +43,9 @@ class CityActivity : AppCompatActivity() {
                 title = "$name $weatherEmoji $temperature°C"
             })
             Picasso.get().load("https://nomadlist.com/$image").into(image_header)
+            tv_aqi.text = String.format("%.2f", airQualityScore)
+            tv_safety.text = safetyLevel.toString()
+            tv_tempC.text = "$temperatureFeels°C"
         }
 
         ApiClient.combosApi.getCombos(ApiClient.CITY_ID_DENPASAR).enqueue(object : Callback<List<Combo>> {
