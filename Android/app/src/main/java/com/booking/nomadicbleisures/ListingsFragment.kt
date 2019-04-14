@@ -97,6 +97,12 @@ class ListingsFragment : Fragment() {
             listingView.listingRating.text = "${Math.round(coworking.rating * 10.0) / 10.0}/5"
             listingView.listingSubtitle.text = "${coworking.numHotels} hotels nearby"
             Picasso.get().load(coworking.image).into(listingView.listingImage);
+            listingView.setOnClickListener {
+                activity?.supportFragmentManager?.beginTransaction()?.apply {
+                    add(R.id.container, CoworkingDetailFragment.newInstance(coworking))
+                    commit()
+                }
+            }
             llListings.addView(listingView)
         }
     }

@@ -85,7 +85,7 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             cityView.cityPrice.text = "$${city.price}"
             cityView.cityWeather.text = "${city.temperature}C"
             cityView.cityInternet.text = "${city.internetSpeed}mbps"
-            cityView.cityNomadScore.text = "${Math.round(city.nomadScore * 10.0) / 10.0}/5"
+            cityView.cityNomadScore.text = "${Math.round(city.nomadScore * 10.0) / 10.0}"
             Picasso.get().load("https://nomadlist.com${city.image}").into(cityView.cityImage);
             llCityList.addView(cityView)
         }
