@@ -11,7 +11,6 @@ import com.booking.nomadicbleisures.network.ApiClient
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_listings.*
 import kotlinx.android.synthetic.main.fragment_listings.view.*
-import kotlinx.android.synthetic.main.item_city.view.*
 import kotlinx.android.synthetic.main.item_listing.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -100,6 +99,7 @@ class ListingsFragment : Fragment() {
             listingView.setOnClickListener {
                 activity?.supportFragmentManager?.beginTransaction()?.apply {
                     add(R.id.container, CoworkingDetailFragment.newInstance(coworking))
+                    addToBackStack(null)
                     commit()
                 }
             }
