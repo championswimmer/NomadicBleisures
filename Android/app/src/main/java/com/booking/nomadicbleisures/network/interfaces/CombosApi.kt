@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface CombosApi {
 
-    @GET("combos-places")
+    @GET("combos")
     fun getCombos(@Query("city_ids") cityId: String): Call<List<Combo>>
 
 }

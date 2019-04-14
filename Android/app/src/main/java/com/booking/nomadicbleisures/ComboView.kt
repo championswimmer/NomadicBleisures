@@ -22,7 +22,7 @@ class ComboView(val ctx: Context, attrs: AttributeSet?): FrameLayout(ctx, attrs)
         Picasso.get().load(coworking.image).into(this.cwImage)
         this.cwTitle.text = coworking.name
         this.cwRating.text = coworking.rating.toString()
-        this.cwPrice.text = "${coworking.currency} ${coworking.monthlyPrice} /mo"
+        this.cwPrice.text = "${coworking.currency} ${coworking.monthlyPrice.toFloat().toInt()} /mo"
         Picasso.get().load(hotel.image).into(this.hotelImage)
         this.hotelTitle.text = hotel.name
         this.hotelPrice.text = "Starting from ${hotel.currency} ${hotel.price}"
