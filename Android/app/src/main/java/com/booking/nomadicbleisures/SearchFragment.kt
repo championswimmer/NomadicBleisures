@@ -60,7 +60,8 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         btn_search.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.add(
                 R.id.container, ListingsFragment.newInstance(
-                    ListingsFragment.Companion.SearchType.COWORKING
+                    if (toggle_switch.isChecked) ListingsFragment.Companion.SearchType.COWORKING
+                    else ListingsFragment.Companion.SearchType.HOTELS
                 )
             )?.addToBackStack(null)?.commit()
         }
@@ -89,7 +90,7 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             cityView.cityNomadScore.text = "${Math.round(city.nomadScore * 10.0) / 10.0}"
             Picasso.get().load("https://nomadlist.com${city.image}").into(cityView.cityImage);
             cityView.setOnClickListener {
-                startActivity(Intent(context, CityActivity::class.java))
+                startActivity(Intent(context, CityActivity::class.java).apply { putExtra("detail", city) })
             }
             llCityList.addView(cityView)
         }

@@ -11,4 +11,5 @@ data class Coworking(@SerializedName("name") val name: String,
                      @SerializedName("attractions") val attractions: String,
                      @SerializedName("image") val image: String,
                      @SerializedName("currency") val currency: String,
-                     @SerializedName("rating") val rating: Float): Parcelable
+                     @SerializedName("rating") val rating: Float,
+                     @SerializedName("recommended_hotel") val recommendedHotel: Hotel): Parcelable

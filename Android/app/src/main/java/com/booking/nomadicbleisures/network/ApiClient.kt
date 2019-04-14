@@ -1,5 +1,6 @@
 package com.booking.nomadicbleisures.network
 
+import com.booking.nomadicbleisures.network.interfaces.CombosApi
 import com.booking.nomadicbleisures.network.interfaces.CoworkingApi
 import com.booking.nomadicbleisures.network.interfaces.HotelsApi
 import okhttp3.OkHttpClient
@@ -29,4 +30,5 @@ object ApiClient {
 
     val hotelsApi = retrofit.create(HotelsApi::class.java)
     val coworkingApi = retrofit.create(CoworkingApi::class.java)
+    val combosApi = retrofit.create(CombosApi::class.java)
 }
