@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.booking.nomadicbleisures.models.Coworking
 import com.booking.nomadicbleisures.models.Hotel
 import com.booking.nomadicbleisures.network.ApiClient
@@ -17,7 +18,6 @@ import kotlinx.android.synthetic.main.item_listing.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 class ListingsFragment : Fragment() {
 
@@ -93,6 +93,7 @@ class ListingsFragment : Fragment() {
                             ListingsFragment.Companion.SearchType.COWORKING
                         )
                     )
+                    setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     addToBackStack(null)
                     commit()
                 }
@@ -121,6 +122,7 @@ class ListingsFragment : Fragment() {
                 activity?.supportFragmentManager?.beginTransaction()?.apply {
                     add(R.id.container, CoworkingDetailFragment.newInstance(coworking))
                     addToBackStack(null)
+                    setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     commit()
                 }
             }

@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_search.view.*
 import kotlinx.android.synthetic.main.item_city.view.*
 import android.view.animation.AnimationUtils
 import android.view.animation.Animation
+import androidx.fragment.app.FragmentTransaction
 
 class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
@@ -67,12 +68,17 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         }
 
         btn_search.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.add(
-                R.id.container, ListingsFragment.newInstance(
-                    if (toggle_switch.isChecked) ListingsFragment.Companion.SearchType.COWORKING
-                    else ListingsFragment.Companion.SearchType.HOTELS
+            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                add(
+                    R.id.container, ListingsFragment.newInstance(
+                        if (toggle_switch.isChecked) ListingsFragment.Companion.SearchType.COWORKING
+                        else ListingsFragment.Companion.SearchType.HOTELS
+                    )
                 )
-            )?.addToBackStack(null)?.commit()
+                addToBackStack(null)
+                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                commit()
+            }
         }
     }
 
