@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.booking.nomadicbleisures.models.Combo
+import com.booking.nomadicbleisures.models.NomadCity
 import com.booking.nomadicbleisures.network.ApiClient
 import com.booking.nomadicbleisures.utils.IOUtils
 import com.google.android.material.snackbar.Snackbar
@@ -36,22 +37,20 @@ class CityActivity : AppCompatActivity() {
         )
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        GlobalScope.launch {
-            IOUtils.loadCities(this@CityActivity)[0].apply {
-                toolbar.title = "$name $weatherEmoji"
-                runOnUiThread {
-                    Picasso.get().load("https://nomadlist.com/$image").into(image_header)
-                }
-            }
+        intent!!.getParcelableExtra<NomadCity>("detail").apply {
+            setSupportActionBar(toolbar.apply {
+                title = "$name $weatherEmoji"
+            })
+            Picasso.get().load("https://nomadlist.com/$image").into(image_header)
         }
 
-
-        ApiClient.combosApi.getCombos(ApiClient.CITY_ID_DENPASAR).enqueue(object: Callback<List<Combo>> {
+        ApiClient.combosApi.getCombos(ApiClient.CITY_ID_DENPASAR).enqueue(object : Callback<List<Combo>> {
             override fun onResponse(call: Call<List<Combo>>, response: Response<List<Combo>>) {
-               response.body()?.let {
-                   showCombos(it)
-               }
+                response.body()?.let {
+                    showCombos(it)
+                }
             }
+
             override fun onFailure(call: Call<List<Combo>>, t: Throwable) {}
         })
 
