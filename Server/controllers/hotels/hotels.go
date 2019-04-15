@@ -1,10 +1,11 @@
 package hotels
 
 import (
+	"net/http"
+
 	"github.com/NomadicBleisures/Server/controllers"
 	"github.com/NomadicBleisures/Server/models/hotel"
 	"github.com/go-chi/render"
-	"net/http"
 )
 
 func Get(w http.ResponseWriter, r *http.Request) {
