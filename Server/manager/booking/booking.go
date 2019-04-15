@@ -26,7 +26,7 @@ func GetClient() *http.Client {
 	return client
 }
 
-func MakeRequest(request Request) (response map[string]interface{}, err error) {
+func MakeRequest(request Request) (response []map[string]interface{}, err error) {
 	client := GetClient()
 	if err != nil {
 		return response, err
@@ -44,6 +44,9 @@ func MakeRequest(request Request) (response map[string]interface{}, err error) {
 	if resp.StatusCode != 200 {
 
 	}
-	json.Unmarshal(body, &response)
+	r := make(map[string][]map[string]interface{})
+	json.Unmarshal(body, &r)
+
+	response = r["result"]
 	return
 }

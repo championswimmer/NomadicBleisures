@@ -1,16 +1,19 @@
 package coworking
 
-import "github.com/NomadicBleisures/Server/manager/coworker"
+import (
+	"github.com/NomadicBleisures/Server/manager/coworker"
+)
 
-func GetMumbai() (interface{}, error) {
+func Get(cityID string) ([]map[string]interface{}, error) {
 	photoURL := "https://coworker.imgix.net/photos/"
-	coworkingPlaces := coworker.CoworkingPlacesMumbai
+	var coworkingPlaces []map[string]interface{}
+	if cityID == "-2676772" {
+		coworkingPlaces = coworker.CoworkingPlacesDenpasar
+	} else {
+		coworkingPlaces = coworker.CoworkingPlacesMumbai
+	}
 	for _, c := range coworkingPlaces {
-		c["image"] = photoURL + c["coworkspace_url"] + c["main_image"]
+		c["image"] = photoURL + c["coworkspace_url"].(string) + c["main_image"].(string)
 	}
 	return coworkingPlaces, nil
-}
-
-func GetBali() (hotels interface{}, err error) {
-	return coworker.CoworkingPlacesMumbai, nil
 }
