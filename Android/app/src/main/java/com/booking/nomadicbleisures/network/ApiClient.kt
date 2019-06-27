@@ -1,5 +1,6 @@
 package com.booking.nomadicbleisures.network
 
+import com.booking.nomadicbleisures.network.interfaces.BleisuresApi
 import com.booking.nomadicbleisures.network.interfaces.CombosApi
 import com.booking.nomadicbleisures.network.interfaces.CoworkingApi
 import com.booking.nomadicbleisures.network.interfaces.HotelsApi
@@ -31,4 +32,5 @@ object ApiClient {
     val hotelsApi = retrofit.create(HotelsApi::class.java)
     val coworkingApi = retrofit.create(CoworkingApi::class.java)
     val combosApi = retrofit.create(CombosApi::class.java)
+    val bleisuresApi = retrofit.create(BleisuresApi::class.java)
 }

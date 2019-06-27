@@ -16,4 +16,8 @@ data class NomadCity(@SerializedName("name") val name: String,
                      @SerializedName("safety_level") val safetyLevel: Float,
                      @SerializedName("short_term_cost_in_usd") val price: Int,
                      @SerializedName("image") val image: String,
-                     @SerializedName("city_id") val cityId: String): Parcelable
+                     @SerializedName("city_id") val cityId: String,
+                     @SerializedName("combos") var combos: List<Combo>? = arrayListOf(),
+                     @SerializedName("recommended") val recommended: Boolean): Parcelable {
+
+}
