@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:minHeight="300dp"
+              android:id="@+id/container">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/signika_negative"
+            android:text="Building nomadic bleisures"
+            android:textSize="22sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="16dp"
+            android:textColor="@android:color/black"/>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/signika_negative"
+            android:text="23 June - 7 July"
+            android:textSize="18sp"
+            android:layout_marginLeft="16dp"
+            android:textColor="@android:color/black"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="16dp"
+            android:background="#22000000"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/filter_container"/>
+
+    <Button
+            android:id="@+id/btn_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp"
+            android:text="Show recommended bleisures"
+            android:fontFamily="@font/signika_negative"
+            android:textColor="@android:color/white"/>
+
+</LinearLayout>
