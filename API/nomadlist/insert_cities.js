@@ -6,8 +6,8 @@ console.log(`cities = ${cities.length}`)
 console.log(cities[ 0 ])
 
 
-async function task() {
-  await Cities.sync({ force: true })
+async function insert() {
+  await Cities.sync({ })
 
   for (let c of cities) {
     console.log(c)
@@ -28,9 +28,9 @@ async function task() {
   }
 }
 
-async function task1() {
+async function check () {
   let c = await Cities.findAll()
   c.forEach(x => console.log(x.dataValues))
 }
 
-task()
+insert().then(() => check())

@@ -17,8 +17,8 @@ cities.forEach(c => {
 
 
 
-async function task () {
-  await Countries.sync({ force: true })
+async function insert () {
+  await Countries.sync({ })
 
   for (let co in countries) {
     const r = await Countries.create(countries[co])
@@ -26,9 +26,9 @@ async function task () {
   }
 }
 
-async function task1() {
+async function check () {
   let c = await Countries.findAll()
   c.forEach(x => console.log(x.dataValues))
 }
 
-task1()
+insert().then(() => check())

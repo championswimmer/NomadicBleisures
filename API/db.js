@@ -5,7 +5,16 @@ const db = new Sequelize({
   database: config.DB.NAME,
   host: config.DB.SEVER,
   username: config.DB.USER,
-  password: config.DB.PASSWORD
+  password: config.DB.PASSWORD,
+  dialectOptions: {
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_general_ci'
+  },
+  define: {
+    charset: 'utf8',
+    collate: 'utf8_general_ci',
+    timestamps: false
+  },
 })
 
 db.authenticate().then(() => {
@@ -35,7 +44,12 @@ const Cities = db.define('city', {
   population: Sequelize.BIGINT,
   safetyLevel: Sequelize.INTEGER, // safety_level
   userBeen: Sequelize.INTEGER, // users_been_count
-  livingCost: Sequelize.INTEGER // short_term_cost_in_usd
+  livingCost: Sequelize.INTEGER, // short_term_cost_in_usd,
+  tempC: Sequelize.INTEGER,
+  tempCfeels: Sequelize.INTEGER,
+  image: Sequelize.STRING,
+  score: Sequelize.FLOAT,
+  weatherEmoji: Sequelize.STRING,
 }, {
   timestamps: false
 })
