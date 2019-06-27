@@ -6,11 +6,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object ApiClient {
-
-    val CITY_ID_MUMBAI = "-2092174"
-    val CITY_ID_DENPASAR = "-2676772"
-
+object ApiClient2 {
 
     private val interceptor = HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) }
 
@@ -21,7 +17,7 @@ object ApiClient {
 
     private val retrofit =
         Retrofit.Builder()
-            .baseUrl("http://178.128.249.124:8080/api/v1/")
+            .baseUrl("http://178.128.249.124:4242/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()

@@ -55,12 +55,13 @@ class BuildBleisureFragment : BottomSheetDialogFragment() {
 
         btn_search.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(
-                    R.id.container,BleisuresFragment()
+                add(
+                    R.id.container, BleisuresFragment()
                 )
                 addToBackStack(null)
                 setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 commit()
+                dismiss()
             }
         }
     }
