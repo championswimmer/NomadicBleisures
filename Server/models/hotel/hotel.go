@@ -3,6 +3,8 @@ package hotel
 import (
 	"fmt"
 	"github.com/NomadicBleisures/Server/manager/booking"
+	"encoding/json"
+	"github.com/sirupsen/logrus"
 )
 
 type HotelData struct {
@@ -14,6 +16,12 @@ type HotelData struct {
 	Currency             string                 `json:"currency,omitempty"`
 	DeepLink             string                 `json:"deeplink,omitempty"`
 	RecommendedCoworking map[string]interface{} `json:"recommended_coworking,omitempty"`
+	Loc                  Location               `json:"locaiton,omitempty"`
+}
+
+type Location struct {
+	Lat float64 `json:"latitude,omitempty"`
+	Lng float64 `json:"longitude,omitempty"`
 }
 
 func Get(cityID string, extras string) ([]HotelData, error) {
@@ -24,7 +32,7 @@ func Get(cityID string, extras string) ([]HotelData, error) {
 	}
 	var hotelsArr []HotelData
 	hotelsData, _ := booking.MakeRequest(request)
-	//lol := hotelsData["result"]
+
 	for i, hotel := range hotelsData {
 		h := HotelData{}
 		hotelData := hotel["hotel_data"].(map[string]interface{})
@@ -36,6 +44,16 @@ func Get(cityID string, extras string) ([]HotelData, error) {
 		h.DeepLink = hotelData["deep_link_url"].(string)
 		h.Currency = hotelData["currency"].(string)
 		h.NumCoworking = (len(hotelsData) - i + 1) * 5 / 3
+		var loc Location
+
+		b, err := json.Marshal(hotelData["location"])
+		if err != nil {
+			logrus.Error(err)
+			return nil, err
+		}
+		json.Unmarshal([]byte(string(b)), &loc)
+		h.Loc = loc
+		logrus.Info(h.Loc)
 		roomData := hotel["room_data"].([]interface{})
 		for _, room := range roomData {
 			r := room.(map[string]interface{})
@@ -77,4 +95,8 @@ func Get(cityID string, extras string) ([]HotelData, error) {
 	}
 
 	return hotelsArr, nil
+}
+
+func Book() {
+
 }
