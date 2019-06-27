@@ -21,7 +21,7 @@ class ComboView(val ctx: Context, attrs: AttributeSet?): FrameLayout(ctx, attrs)
     }
 
     val discountTexts = arrayOf(
-        "More than ${r.nextInt(3) * 10}% less than usual prices",
+        "More than ${(r.nextInt(2) * 10) + 10}% below usual prices",
         "Last ${r.nextInt(7)} rooms left this month",
         "Valid only for today"
     )

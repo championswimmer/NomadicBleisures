@@ -64,7 +64,7 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         et_dates.setOnClickListener {
             et_dates.text = null
-            DatePickerDialog(context, this, 2019, 3, 13).show()
+            DatePickerDialog(context, this, 2019, 3, 14).show()
         }
 
         btn_search.setOnClickListener {
@@ -88,11 +88,11 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         if (flag == 0) {
-            DatePickerDialog(context, this, 2019, 3, 14).show()
+            DatePickerDialog(context, this, 2019, 3, 15).show()
             flag = 1
         } else {
             flag = 0
-            et_dates.setText("13 Apr - 25 May")
+            et_dates.setText("14 Apr - 13 May")
         }
     }
 

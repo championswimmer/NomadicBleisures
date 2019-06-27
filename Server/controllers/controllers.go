@@ -1,9 +1,10 @@
 package controllers
 
 import (
+	"net/http"
+
 	"github.com/go-chi/render"
 	"github.com/sirupsen/logrus"
-	"net/http"
 )
 
 func ServeJsonError(w http.ResponseWriter, r *http.Request, error string) {

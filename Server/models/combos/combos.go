@@ -1,33 +1,36 @@
-package hotel
+package combos
 
 import (
 	"fmt"
+
 	"github.com/NomadicBleisures/Server/manager/booking"
+	"github.com/NomadicBleisures/Server/models/coworking"
+	"github.com/NomadicBleisures/Server/models/hotel"
 )
 
-type HotelData struct {
-	Name                 string                 `json:"name,omitempty"`
-	Image                string                 `json:"image,omitempty"`
-	Rating               float64                `json:"rating,omitempty"`
-	NumCoworking         int                    `json:"num_coworking,omitempty"`
-	Price                float64                `json:"price,omitempty"`
-	Currency             string                 `json:"currency,omitempty"`
-	DeepLink             string                 `json:"deeplink,omitempty"`
-	RecommendedCoworking map[string]interface{} `json:"recommended_coworking,omitempty"`
+type Combo struct {
+	Hotel     hotel.HotelData        `json:"hotel,omitempty"`
+	Coworking map[string]interface{} `json:"coworking,omitempty"`
 }
 
-func Get(cityID string, extras string) ([]HotelData, error) {
-	extras = "hotel_description,hotel_photos,hotel_info,room_info"
+func Get(cityID string) ([]Combo, error) {
+	extras := "hotel_description,hotel_photos,hotel_info,room_info"
+	rows := 10
+	coworkingPlaces, _ := coworking.Get(cityID)
+	combos := []Combo{}
+	if cityID == "-2676772" {
+		rows = 3
+	} else {
+		rows = 7
+	}
 	request := booking.Request{
-		Url:    fmt.Sprintf("https://distribution-xml.booking.com/2.0/json/hotels?"+"city_ids=%s&extras=%s&rows=10", cityID, extras),
+		Url:    fmt.Sprintf("https://distribution-xml.booking.com/2.0/json/hotels?"+"city_ids=%s&extras=%s&rows=%d", cityID, extras, rows),
 		Method: "GET",
 	}
-	var hotelsArr []HotelData
 	hotelsData, _ := booking.MakeRequest(request)
-	//lol := hotelsData["result"]
-	for i, hotel := range hotelsData {
-		h := HotelData{}
-		hotelData := hotel["hotel_data"].(map[string]interface{})
+	for i, hotelItem := range hotelsData {
+		h := hotel.HotelData{}
+		hotelData := hotelItem["hotel_data"].(map[string]interface{})
 		h.Name = hotelData["name"].(string)
 		hotelPhotos := hotelData["hotel_photos"].([]interface{})
 		hotelImage := hotelPhotos[0].(map[string]interface{})
@@ -36,7 +39,7 @@ func Get(cityID string, extras string) ([]HotelData, error) {
 		h.DeepLink = hotelData["deep_link_url"].(string)
 		h.Currency = hotelData["currency"].(string)
 		h.NumCoworking = (len(hotelsData) - i + 1) * 5 / 3
-		roomData := hotel["room_data"].([]interface{})
+		roomData := hotelItem["room_data"].([]interface{})
 		for _, room := range roomData {
 			r := room.(map[string]interface{})
 			roomInfo := r["room_info"].(map[string]interface{})
@@ -72,9 +75,12 @@ func Get(cityID string, extras string) ([]HotelData, error) {
 				"rating":          "9.4",
 			}
 		}
-
-		hotelsArr = append(hotelsArr, h)
+		combo := Combo{
+			Hotel:     h,
+			Coworking: coworkingPlaces[i],
+		}
+		combos = append(combos, combo)
 	}
 
-	return hotelsArr, nil
+	return combos, nil
 }
