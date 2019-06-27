@@ -24,13 +24,17 @@ route.get('/', async (req, res) => {
     }
   })
 
+  // Cities that start with are more preferred
   if (req.query.name) {
     cities.sort((c1, c2) =>
       c1.name.toLowerCase().indexOf(req.query.name) - c2.name.toLowerCase().indexOf(req.query.name)
     )
   }
 
-  res.send(cities)
+  // Strip out cities with no Booking.com ids
+  const bookingEnabledCities = cities.filter(c => (c.booking_cities.length > 0))
+
+  res.send(bookingEnabledCities)
 })
 
 module.exports = { route }
