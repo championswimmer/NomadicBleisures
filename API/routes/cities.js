@@ -17,11 +17,16 @@ route.get('/', async (req, res) => {
     )
   }
 
+
   const cities = await Cities.findAll({
     include: [ BookingCities, Countries ],
     where: {
       [ Op.and ]: whereArr
-    }
+    },
+    order: [
+      ['score', 'DESC']
+    ],
+    limit: req.query.limit != null ? +(req.query.limit) : 5
   })
 
   // Cities that start with are more preferred
