@@ -17,7 +17,7 @@ async function task() {
   const cities = await Cities.findAll({
     include: [ Countries ],
     limit: 200,
-    offset: 200,
+    offset: 400,
   })
   for (c of cities) {
     console.log(`${c.name}, ${c.country.name}`)
@@ -29,13 +29,19 @@ async function task() {
 
       for (r of resp.data.result) {
         if (r.type == 'city') {
-          const bc = await BookingCities.create({
-            id: r.id,
-            url: r.url,
-            cityId: c.id,
-            label: c.label
-          })
-          console.log(bc.dataValues)
+          try {
+            const bc = await BookingCities.create({
+              id: r.id,
+              url: r.url,
+              cityId: c.id,
+              label: r.label
+            })
+            console.log(bc.dataValues)
+          } catch (e) {
+            console.error(r)
+            console.error(e)
+          }
+
         }
       }
     } catch (e) {

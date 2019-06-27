@@ -5,7 +5,16 @@ const db = new Sequelize({
   database: config.DB.NAME,
   host: config.DB.SEVER,
   username: config.DB.USER,
-  password: config.DB.PASSWORD
+  password: config.DB.PASSWORD,
+  dialectOptions: {
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_general_ci'
+  },
+  define: {
+    charset: 'utf8',
+    collate: 'utf8_general_ci',
+    timestamps: false
+  },
 })
 
 db.authenticate().then(() => {
