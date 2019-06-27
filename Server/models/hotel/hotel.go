@@ -16,7 +16,7 @@ type HotelData struct {
 	Currency             string                 `json:"currency,omitempty"`
 	DeepLink             string                 `json:"deeplink,omitempty"`
 	RecommendedCoworking map[string]interface{} `json:"recommended_coworking,omitempty"`
-	Loc                  Location               `json:"locaiton,omitempty"`
+	Loc                  Location               `json:"location,omitempty"`
 }
 
 type Location struct {

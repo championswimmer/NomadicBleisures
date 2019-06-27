@@ -8,10 +8,10 @@ import (
 )
 
 type MapSearch struct {
-	Hotels []hotel.HotelData
+	Hotels []hotel.HotelData `json:"hotels,omitempty"`
 	//Coworking   []coworking.Coworking
-	Coworking   []map[string]interface{}
-	Attractions map[string]interface{}
+	Coworking   []map[string]interface{} `json:"coworking,omitempty"`
+	Attractions map[string]interface{} `json:"attractions,omitempty"`
 }
 
 func Get(lat float64, lng float64) (cityName string, cityID uint) {
