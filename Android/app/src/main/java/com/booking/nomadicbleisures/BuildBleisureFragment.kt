@@ -6,14 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.fragment.app.FragmentTransaction
 import com.booking.nomadicbleisures.models.Filters
 import com.booking.nomadicbleisures.utils.IOUtils
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_build_bleisures.*
+
 
 class BuildBleisureFragment : BottomSheetDialogFragment() {
 
@@ -22,9 +26,19 @@ class BuildBleisureFragment : BottomSheetDialogFragment() {
     lateinit var selections: List<Filters.Selection>
     lateinit var filters: List<Filters.Filter>
 
+    private var rootView: View? = null
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val v = inflater.inflate(R.layout.fragment_build_bleisures, container, false)
-        return v
+        rootView = inflater.inflate(R.layout.fragment_build_bleisures, container, false)
+        return rootView
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val peekHeight = 2000
+        val mBehavior = BottomSheetBehavior.from(rootView!!.parent as View)
+        mBehavior.peekHeight = peekHeight
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,7 +53,16 @@ class BuildBleisureFragment : BottomSheetDialogFragment() {
 
         addSelection()
 
-
+        btn_search.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                replace(
+                    R.id.container,BleisuresFragment()
+                )
+                addToBackStack(null)
+                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                commit()
+            }
+        }
     }
 
     private fun addSelection() {
@@ -71,6 +94,7 @@ class BuildBleisureFragment : BottomSheetDialogFragment() {
 
             }
         filter_container.addView(selectionLayout)
+        space.layoutParams.height = space.height + 50
     }
 
     private fun showFilters() {
@@ -90,5 +114,7 @@ class BuildBleisureFragment : BottomSheetDialogFragment() {
             }
         }
         filter_container.addView(filtersLayout)
+        space.visibility = View.GONE
+
     }
 }

@@ -42,13 +42,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            android:layout_marginTop="12dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:visibility="gone"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="50dp"
             android:text="Show recommended bleisures"
             android:fontFamily="@font/signika_negative"
             android:textColor="@android:color/white"/>
 
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:visibility="invisible"
+            android:id="@+id/space"/>
 </LinearLayout>

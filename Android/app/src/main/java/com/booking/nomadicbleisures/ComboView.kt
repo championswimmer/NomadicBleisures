@@ -11,13 +11,13 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_combo.view.*
 import java.util.*
 
-class ComboView(val ctx: Context, attrs: AttributeSet?): FrameLayout(ctx, attrs) {
+class ComboView(val ctx: Context, val attrs: AttributeSet? = null, val layoutId: Int = R.layout.item_combo): FrameLayout(ctx, attrs) {
 
     private lateinit var rootview: View
     private val r = Random()
 
     init {
-        LayoutInflater.from(ctx).inflate(R.layout.item_combo, this, true)
+        LayoutInflater.from(ctx).inflate(layoutId, this, true)
     }
 
     val discountTexts = arrayOf(
@@ -28,13 +28,15 @@ class ComboView(val ctx: Context, attrs: AttributeSet?): FrameLayout(ctx, attrs)
 
     fun setup(coworking: Coworking, hotel: Hotel) {
         Picasso.get().load(coworking.image).into(this.cwImage)
-        this.cwTitle.text = coworking.name
-        this.cwRating.text = coworking.rating.toString()
-        this.cwPrice.text = "${coworking.currency} ${coworking.monthlyPrice.toFloat().toInt()} /mo"
-        Picasso.get().load(hotel.image).into(this.hotelImage)
-        this.hotelTitle.text = hotel.name
-        this.hotelPrice.text = "${hotel.currency} ${hotel.price.toFloat().toInt()}"
-        this.hotelRating.text = hotel.rating.toString()
-        this.discountText.text = discountTexts[r.nextInt(3)]
+        this.cwTitle?.text = coworking.name
+        this.cwRating?.text = coworking.rating.toString()
+        this.cwPrice?.text = "${coworking.currency} ${coworking.monthlyPrice.toFloat().toInt()} /mo"
+        this.hotelImage?.let {
+            Picasso.get().load(hotel.image).into(it)
+        }
+        this.hotelTitle?.text = hotel.name
+        this.hotelPrice?.text = "${hotel.currency} ${hotel.price.toFloat().toInt()}"
+        this.hotelRating?.text = hotel.rating.toString()
+        this.discountText?.text = discountTexts[r.nextInt(3)]
     }
 }
