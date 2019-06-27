@@ -44,7 +44,12 @@ const Cities = db.define('city', {
   population: Sequelize.BIGINT,
   safetyLevel: Sequelize.INTEGER, // safety_level
   userBeen: Sequelize.INTEGER, // users_been_count
-  livingCost: Sequelize.INTEGER // short_term_cost_in_usd
+  livingCost: Sequelize.INTEGER, // short_term_cost_in_usd,
+  tempC: Sequelize.INTEGER,
+  tempCfeels: Sequelize.INTEGER,
+  image: Sequelize.STRING,
+  score: Sequelize.FLOAT,
+  weatherEmoji: Sequelize.STRING,
 }, {
   timestamps: false
 })

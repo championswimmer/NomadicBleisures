@@ -17,7 +17,7 @@ async function task() {
   const cities = await Cities.findAll({
     include: [ Countries ],
     limit: 200,
-    offset: 400,
+    offset: 600,
   })
   for (c of cities) {
     console.log(`${c.name}, ${c.country.name}`)

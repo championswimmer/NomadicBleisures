@@ -24,6 +24,12 @@ route.get('/', async (req, res) => {
     }
   })
 
+  if (req.query.name) {
+    cities.sort((c1, c2) =>
+      c1.name.toLowerCase().indexOf(req.query.name) - c2.name.toLowerCase().indexOf(req.query.name)
+    )
+  }
+
   res.send(cities)
 })
 
