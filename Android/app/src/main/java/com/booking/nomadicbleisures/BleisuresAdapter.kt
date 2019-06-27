@@ -50,7 +50,7 @@ class BleisuresAdapter : RecyclerView.Adapter<BleisuresAdapter.ViewHolder>() {
                     cityWeather.text = "${city.temperature}C"
                     cityInternet.text = "${city.internetSpeed}mbps"
                     cityNomadScore.text = "${Math.round(city.nomadScore * 10.0) / 10.0}"
-                    Picasso.get().load("https://nomadlist.com${city.image}").into(cityImage);
+                    Picasso.get().load(city.image).into(cityImage);
                     cityRootView.setOnClickListener {
                         context.startActivity(Intent(context, CityActivity::class.java).apply { putExtra("detail", city) })
                     }
@@ -76,7 +76,7 @@ class BleisuresAdapter : RecyclerView.Adapter<BleisuresAdapter.ViewHolder>() {
                     cityWeather.text = "${city.temperature}C"
                     cityInternet.text = "${city.internetSpeed}mbps"
                     cityNomadScore.text = "${Math.round(city.nomadScore * 10.0) / 10.0}"
-                    Picasso.get().load("https://nomadlist.com${city.image}").into(cityImage);
+                    Picasso.get().load(city.image).into(cityImage);
                     cityRootView.setOnClickListener {
                         context.startActivity(Intent(context, CityActivity::class.java).apply { putExtra("detail", city) })
                     }

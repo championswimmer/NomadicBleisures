@@ -42,12 +42,13 @@ class CityActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         intent!!.getParcelableExtra<NomadCity>("detail").apply {
-            this@CityActivity.cityId = cityId
+            if (bookingCities == null) return
+            this@CityActivity.cityId = bookingCities[0].id
             setSupportActionBar(toolbar.apply {
-                title = "$name $weatherEmoji $temperature°C"
+                title = "$name ${MainActivity.weatherMap[weatherEmoji]} $temperature°C"
             })
-            Picasso.get().load("https://nomadlist.com/$image").into(image_header)
-            tv_aqi.text = String.format("%.2f", airQualityScore)
+            Picasso.get().load(image).into(image_header)
+            tv_aqi.text = airQualityScore.toString()
             tv_safety.text = safetyLevel.toString()
             tv_tempC.text = "$temperatureFeels°C"
         }
