@@ -80,6 +80,10 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 commit()
             }
         }
+
+        btn_build.setOnClickListener {
+            BuildBleisureFragment().show(childFragmentManager, "Build")
+        }
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {

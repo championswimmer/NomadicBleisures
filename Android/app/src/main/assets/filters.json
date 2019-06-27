@@ -1,0 +1,44 @@
+{
+  "selections": [
+    {
+      "type": "budget",
+      "title": "Select your budget",
+      "filters": [
+        "<$25/day",
+        "$25-50/day",
+        ">$50/day"
+      ]
+    },
+    {
+      "type": "weather",
+      "title": "Weather",
+      "filters": [
+        "Cold",
+        "Warm",
+        "Mild"
+      ]
+    },
+    {
+      "type": "timezone",
+      "title": "Timezone",
+      "filters": [
+        "0-3",
+        "3-6"
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "type": "airquality",
+      "title": "Air quality"
+    },
+    {
+      "type": "wifi",
+      "title": "High speed Wi-Fi"
+    },
+    {
+      "type": "nomad",
+      "title": "Popular with Nomads"
+    }
+  ]
+}
