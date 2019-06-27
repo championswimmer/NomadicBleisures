@@ -24,24 +24,37 @@ const Countries = db.define('country', {
 
 
 const Cities = db.define('city', {
+  name: Sequelize.STRING,
   slug: { type: Sequelize.STRING, unique: true },
   countryId: { type: Sequelize.STRING(2) },
   description: Sequelize.TEXT,
   aqi: Sequelize.INTEGER, // air_quality
   internetMbps: Sequelize.INTEGER,
   latitude: Sequelize.DECIMAL(10, 8),
-  longitude: Sequelize.DECIMAL(11,8),
+  longitude: Sequelize.DECIMAL(11, 8),
   population: Sequelize.BIGINT,
   safetyLevel: Sequelize.INTEGER, // safety_level
   userBeen: Sequelize.INTEGER, // users_been_count
-  livingCost: Sequelize.INTEGER, // short_term_cost_in_usd
+  livingCost: Sequelize.INTEGER // short_term_cost_in_usd
 }, {
   timestamps: false
 })
 
 
+Cities.belongsTo(Countries, { foreignKey: 'countryId' })
+Countries.hasMany(Cities, { foreignKey: 'countryId' })
+
+const BookingCities = db.define('booking_city', {
+  id: { type: Sequelize.BIGINT, primaryKey: true },
+  url: Sequelize.STRING
+})
+
+BookingCities.belongsTo(Cities)
+Cities.hasMany(BookingCities)
+
 module.exports = {
   db,
   Countries,
-  Cities
+  Cities,
+  BookingCities
 }

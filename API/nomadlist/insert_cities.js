@@ -6,16 +6,13 @@ console.log(`cities = ${cities.length}`)
 console.log(cities[ 0 ])
 
 
-Cities.belongsTo(Countries, { foreignKey: 'countryId' })
-Countries.hasMany(Cities, { foreignKey: 'countryId' })
-
-
 async function task() {
   await Cities.sync({ force: true })
 
   for (let c of cities) {
     console.log(c)
     Cities.create({
+      name: c.name,
       slug: c.short_slug,
       countryId: c.country_code,
       description: c.descriptionFromReview,
@@ -36,4 +33,4 @@ async function task1() {
   c.forEach(x => console.log(x.dataValues))
 }
 
-task1()
+task()
