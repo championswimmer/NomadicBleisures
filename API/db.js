@@ -46,7 +46,10 @@ Countries.hasMany(Cities, { foreignKey: 'countryId' })
 
 const BookingCities = db.define('booking_city', {
   id: { type: Sequelize.BIGINT, primaryKey: true },
-  url: Sequelize.STRING
+  url: Sequelize.STRING,
+  label: Sequelize.STRING
+}, {
+  timestamps: false
 })
 
 BookingCities.belongsTo(Cities)

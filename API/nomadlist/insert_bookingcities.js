@@ -12,12 +12,12 @@ const bookingApi = axios.create({
 })
 
 async function task() {
-  BookingCities.sync({  })
+  BookingCities.sync({ })
 
   const cities = await Cities.findAll({
     include: [ Countries ],
-    limit: 100,
-    offset: 400,
+    limit: 200,
+    offset: 200,
   })
   for (c of cities) {
     console.log(`${c.name}, ${c.country.name}`)
@@ -25,14 +25,15 @@ async function task() {
     try {
       encodeURIComponent()
       const resp = await bookingApi.get(`/autocomplete?language=en&text=${encodeURIComponent(searchParam)}`)
-      await (util.promisify(setTimeout))(100)
+      await (util.promisify(setTimeout))(50)
 
       for (r of resp.data.result) {
         if (r.type == 'city') {
           const bc = await BookingCities.create({
             id: r.id,
             url: r.url,
-            cityId: c.id
+            cityId: c.id,
+            label: c.label
           })
           console.log(bc.dataValues)
         }

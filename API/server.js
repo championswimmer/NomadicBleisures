@@ -11,13 +11,14 @@ app.get('/cities', async (req, res) => {
   if (req.query.name) {
     whereArr.push(
       Sequelize.where(
-        Sequelize.fn('lower', Sequelize.col('name')),
+        Sequelize.fn('lower', Sequelize.col('city.name')),
         { [ Op.like ]: `%${req.query.name}%` }
       )
     )
   }
 
   const cities = await Cities.findAll({
+    include: [ BookingCities, Countries ],
     where: {
       [ Op.and ]: whereArr
     }
