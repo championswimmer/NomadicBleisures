@@ -1,0 +1,9 @@
+{
+  "DB": {
+    "SEVER": "178.128.249.124",
+    "PORT": "3306",
+    "NAME": "nomadb",
+    "USER" : "nomad",
+    "PASSWORD": "champselyses"
+  }
+}
