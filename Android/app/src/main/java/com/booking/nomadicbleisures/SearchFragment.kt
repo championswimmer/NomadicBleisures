@@ -4,21 +4,21 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import com.booking.nomadicbleisures.map.MapsActivity
 import com.booking.nomadicbleisures.models.NomadCity
+import com.booking.nomadicbleisures.network.ApiClient2
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.item_city.view.*
-import android.view.animation.AnimationUtils
-import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.FragmentTransaction
-import com.booking.nomadicbleisures.network.ApiClient2
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -104,6 +104,10 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         btn_build.setOnClickListener {
             BuildBleisureFragment.newInstance(selectedDates).show(childFragmentManager, "Build")
+        }
+
+        map.setOnClickListener {
+            startActivity(Intent(activity, MapsActivity::class.java))
         }
     }
 
