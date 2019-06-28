@@ -20,8 +20,8 @@ route.get('/', async (req, res) => {
       case 'medium': {
         costParam = {
           [ Op.and ]: {
-            [ Op.gt ]: 750,
-            [ Op.lt ]: 1500
+            [ Op.gte ]: 750,
+            [ Op.lte ]: 1500
           }
         }
         break
@@ -38,7 +38,30 @@ route.get('/', async (req, res) => {
   }
 
   if (req.query.weather) {
+    let weatherParam
 
+    switch (req.query.weather) {
+      case 'cold': {
+        weatherParam = { [ Op.lt ]: 20 }
+        break
+      }
+      case 'mild': {
+        weatherParam = {
+          [ Op.and ]: {
+            [ Op.gte ]: 20,
+            [ Op.lte ]: 30
+          }
+        }
+        break
+      }
+      case 'warm': {
+        weatherParam = { [ Op.gt ]: 30 }
+        break
+      }
+    }
+    whereArr.push(
+      { tempC: weatherParam }
+    )
   }
 
 
