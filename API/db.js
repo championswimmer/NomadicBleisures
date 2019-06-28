@@ -73,11 +73,20 @@ const Coworks = db.define('coworking_places', {
   id: { type: Sequelize.INTEGER, primaryKey: true },
   city_id: Sequelize.INTEGER,
   name: Sequelize.STRING,
-  m_price: Sequelize.INTEGER,
+  m_price: {
+    type: Sequelize.INTEGER,
+    get() {
+      const val = this.getDataValue('m_price')
+      return val ? val.toString : "0"
+    }
+  },
   d_price: Sequelize.INTEGER,
   currency: Sequelize.STRING(4),
   rating: Sequelize.DECIMAL,
-  image_url: Sequelize.STRING,
+  image: {
+    field: 'image_url',
+    type: Sequelize.STRING
+  },
   latitude: Sequelize.DECIMAL(10, 8),
   longitude: Sequelize.DECIMAL(11, 8),
 }, {
