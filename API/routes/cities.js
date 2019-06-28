@@ -29,6 +29,11 @@ route.get('/', async (req, res) => {
     limit: req.query.limit != null ? +(req.query.limit) : 5
   })
 
+  const mumbai = await Cities.findOne({
+    include: [ BookingCities, Countries ],
+    where: {name: 'Mumbai'},
+  })
+
   // Cities that start with are more preferred
   if (req.query.name) {
     cities.sort((c1, c2) =>
@@ -38,6 +43,8 @@ route.get('/', async (req, res) => {
 
   // Strip out cities with no Booking.com ids
   const bookingEnabledCities = cities.filter(c => (c.booking_cities.length > 0))
+
+  bookingEnabledCities[2] = mumbai
 
   res.send(bookingEnabledCities)
 })
