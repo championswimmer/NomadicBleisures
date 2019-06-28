@@ -4,15 +4,15 @@ const Sequelize = require('sequelize')
 const axios = require('axios')
 
 
-async function getCoworksOfCity(cityId) {
+async function getCoworksOfCity(cityId, limit = true) {
   const coworks = await Coworks.findAll({
     where: {
       city_id: cityId
     },
     order: [
-      ['rating', 'DESC'],
+      [ 'rating', 'DESC' ]
     ],
-    limit: 3
+    limit: limit ? 3 : 100
   })
 
   return coworks

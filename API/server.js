@@ -7,6 +7,7 @@ const app = express()
 
 app.use('/cities', require('./routes/cities').route)
 app.use('/bleisures', require('./routes/bleisures').route)
+app.use('/coworks', require('./routes/coworks').route)
 app.use('/meta', require('./routes/meta').route)
 
 app.listen(4242, () => {
