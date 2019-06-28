@@ -39,7 +39,9 @@ route.get('/selections', async (req, res) => {
     ],
     options: [
       {type: 'aqi', title: 'Clean Air 🍃'},
-      {type: 'internet', title: 'Fast Internet 🔌'}
+      {type: 'internet', title: 'Fast Internet 🔌'},
+      {type: 'high_nomad', title: 'Preferred by Nomads 🧳'},
+      {type: 'low_pop', title: 'Low Population 👨‍👩‍👧‍👦'}
     ]
   })
 

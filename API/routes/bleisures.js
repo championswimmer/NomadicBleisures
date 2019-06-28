@@ -64,6 +64,30 @@ route.get('/', async (req, res) => {
     )
   }
 
+  if (req.query.low_pop) {
+    whereArr.push({
+      population: { [ Op.lt ]: 30000 }
+    })
+  }
+
+  if (req.query.aqi) {
+    whereArr.push({
+      aqi: { [ Op.lt ]: 50 }
+    })
+  }
+
+  if (req.query.internet) {
+    whereArr.push({
+      internetMbps: { [ Op.gt ]: 20 }
+    })
+  }
+
+  if (req.query.high_nomad) {
+    whereArr.push({
+      userBeen: { [ Op.gt ]: 500 }
+    })
+  }
+
 
   const cities = await Cities.findAll({
     include: [ BookingCities, Countries ],
