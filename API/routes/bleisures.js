@@ -2,6 +2,7 @@ const Sequelize = require('sequelize')
 const { Op } = Sequelize
 const { Cities, BookingCities, Countries } = require('../db')
 const { Router } = require('express')
+const { getCoworksOfCity } = require('../controllers/coworks')
 
 
 const route = Router()
@@ -101,7 +102,17 @@ route.get('/', async (req, res) => {
   })
 
   // Strip out cities with no Booking.com ids
-  const bookingEnabledCities = cities.filter(c => (c.booking_cities.length > 0))
+  const bookingEnabledCities = cities.filter(c => (c.booking_cities.length > 0)).map(x => x.dataValues)
+
+
+  for (const bec of bookingEnabledCities) {
+    const coworks = await getCoworksOfCity(bec.id)
+    bec.combos = [
+      {cowork: coworks[0]},
+      {cowork: coworks[1]},
+      {cowork: coworks[2]}]
+
+  }
 
   res.send(bookingEnabledCities)
 })
