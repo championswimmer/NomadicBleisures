@@ -32,7 +32,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	logrus.Info("BC: ", bookingCities)
 	//bookingCitiesStr := strings.Trim(strings.Join(strings.Fields(fmt.Sprint(bookingCities)), ","), "[]")
 	logrus.Info("HOT:", lat, lng, radius)
-	hotelIDs := GetHotels(lat, lng, int(radius))
+	hotelIDs := GetHotels(lat, lng, radius)
 	logrus.Info("HOT:", hotelIDs)
 	hotelsStr := strings.Trim(strings.Join(strings.Fields(fmt.Sprint(hotelIDs)), ","), "[]")
 	logrus.Info(hotelsStr)
@@ -51,8 +51,8 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func GetHotels(lat float64, lng float64, radius int) ([]uint) {
-	url := fmt.Sprintf("https://distribution-xml.booking.com/2.0/json/hotelAvailability?latitude=%f&longitude=%f&radius=%d&checkin=2019-09-01&checkout=2019-09-05&room1=A&rows=10", lat, lng, radius)
+func GetHotels(lat float64, lng float64, radius float64) ([]uint) {
+	url := fmt.Sprintf("https://distribution-xml.booking.com/2.0/json/hotelAvailability?latitude=%f&longitude=%f&radius=%f&checkin=2019-09-01&checkout=2019-09-05&room1=A&rows=10", lat, lng, radius)
 	logrus.Info(url)
 	request := booking.Request{
 		//Url:    fmt.Sprintf("https://distribution-xml.booking.com/2.0/json/hotelAvailability?latitude=%f&longitude=%f&radius=%d&checkin=2019-09-01&checkout=2019-09-02&room1=A&rows=10", lat, lng, radius),
