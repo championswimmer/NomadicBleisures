@@ -5,6 +5,8 @@ import (
 	"github.com/NomadicBleisures/Server/manager/booking"
 	"encoding/json"
 	"github.com/sirupsen/logrus"
+	"math/rand"
+	"time"
 )
 
 type HotelData struct {
@@ -27,23 +29,28 @@ type Location struct {
 func Get(cityID string, extras string) ([]HotelData, error) {
 	extras = "hotel_description,hotel_photos,hotel_info,room_info"
 	request := booking.Request{
-		Url:    fmt.Sprintf("https://distribution-xml.booking.com/2.0/json/hotels?"+"city_ids=%s&extras=%s&rows=10", cityID, extras),
+		Url:    fmt.Sprintf("https://distribution-xml.booking.com/2.0/json/hotels?"+"city_ids=%s&extras=%s&rows=25", cityID, extras),
 		Method: "GET",
 	}
 	var hotelsArr []HotelData
 	hotelsData, _ := booking.MakeRequest(request)
+	rand.Seed(time.Now().UnixNano())
+	min := 2
+	max := 9
 
-	for i, hotel := range hotelsData {
+	for _, hotel := range hotelsData {
 		h := HotelData{}
 		hotelData := hotel["hotel_data"].(map[string]interface{})
 		h.Name = hotelData["name"].(string)
 		hotelPhotos := hotelData["hotel_photos"].([]interface{})
 		hotelImage := hotelPhotos[0].(map[string]interface{})
 		h.Image = hotelImage["url_original"].(string)
-		h.Rating = hotelData["review_score"].(float64)
+		if hotelData["review_score"] != nil {
+			h.Rating = hotelData["review_score"].(float64)
+		}
 		h.DeepLink = hotelData["deep_link_url"].(string)
 		h.Currency = hotelData["currency"].(string)
-		h.NumCoworking = (len(hotelsData) - i + 1) * 5 / 3
+		h.NumCoworking = rand.Intn(max-min) + min
 		var loc Location
 
 		b, err := json.Marshal(hotelData["location"])
@@ -53,7 +60,6 @@ func Get(cityID string, extras string) ([]HotelData, error) {
 		}
 		json.Unmarshal([]byte(string(b)), &loc)
 		h.Loc = loc
-		logrus.Info(h.Loc)
 		roomData := hotel["room_data"].([]interface{})
 		for _, room := range roomData {
 			r := room.(map[string]interface{})
@@ -109,8 +115,11 @@ func GetHotelsWithID(hotelIDs string, extras string) ([]HotelData, error) {
 	}
 	var hotelsArr []HotelData
 	hotelsData, _ := booking.MakeRequest(request)
+	rand.Seed(time.Now().UnixNano())
+	min := 2
+	max := 9
 
-	for i, hotel := range hotelsData {
+	for _, hotel := range hotelsData {
 		h := HotelData{}
 		hotelData := hotel["hotel_data"].(map[string]interface{})
 		h.Name = hotelData["name"].(string)
@@ -122,7 +131,7 @@ func GetHotelsWithID(hotelIDs string, extras string) ([]HotelData, error) {
 		}
 		h.DeepLink = hotelData["deep_link_url"].(string)
 		h.Currency = hotelData["currency"].(string)
-		h.NumCoworking = (len(hotelsData) - i + 1) * 5 / 3
+		h.NumCoworking = rand.Intn(max-min) + min
 		var loc Location
 
 		b, err := json.Marshal(hotelData["location"])
@@ -132,7 +141,7 @@ func GetHotelsWithID(hotelIDs string, extras string) ([]HotelData, error) {
 		}
 		json.Unmarshal([]byte(string(b)), &loc)
 		h.Loc = loc
-		logrus.Info(h.Loc)
+		//logrus.Info(h.Loc)
 		roomData := hotel["room_data"].([]interface{})
 		for _, room := range roomData {
 			r := room.(map[string]interface{})
@@ -173,7 +182,7 @@ func GetHotelsWithID(hotelIDs string, extras string) ([]HotelData, error) {
 		//if radius != 0 {
 		//	distance := utils.Distance()
 		//} else {
-			hotelsArr = append(hotelsArr, h)
+		hotelsArr = append(hotelsArr, h)
 		//}
 	}
 

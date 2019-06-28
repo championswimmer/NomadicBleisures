@@ -15,7 +15,7 @@ func Initialize() {
 }
 
 func FetchCity(lat float64, lng float64) string {
-	logrus.Info(geocoder)
+	//logrus.Info(geocoder)
 	address, err := geocoder.ReverseGeocode(lat, lng)
 	if err != nil {
 		logrus.Error(err)
