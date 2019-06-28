@@ -122,14 +122,14 @@ route.get('/', async (req, res) => {
     const hotels = allHotels[i]
     if (hotels.data == null) hotels.data = []
     bec.combos = [
-      { hotel: hotels.data[ 0 ], cowork: coworks[ 0 ] },
-      { hotel: hotels.data[ 1 ], cowork: coworks[ 1 ] },
-      { hotel: hotels.data[ 2 ], cowork: coworks[ 2 ] } ]
+      { hotel: hotels.data[ 0 ], coworking: coworks[ 0 ] },
+      { hotel: hotels.data[ 1 ], coworking: coworks[ 1 ] },
+      { hotel: hotels.data[ 2 ], coworking: coworks[ 2 ] } ]
 
   }
 
   res.send(bookingEnabledCities.filter(bcbc => {
-    return bcbc.combos[0].cowork != null
+    return bcbc.combos[0].coworking != null
   }))
 })
 
