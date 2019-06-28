@@ -8,15 +8,39 @@ const route = Router()
 route.get('/', async (req, res) => {
   const whereArr = []
 
-  // Query by name
-  if (req.query.name) {
+  // Selection args
+  if (req.query.cost) {
+    let costParam
+
+    switch (req.query.cost) {
+      case 'high': {
+        costParam = { [ Op.gt ]: 1500 }
+        break
+      }
+      case 'medium': {
+        costParam = {
+          [ Op.and ]: {
+            [ Op.gt ]: 750,
+            [ Op.lt ]: 1500
+          }
+        }
+        break
+      }
+      case 'low': {
+        costParam = { [ Op.lt ]: 750 }
+        break
+      }
+    }
+
     whereArr.push(
-      Sequelize.where(
-        Sequelize.fn('lower', Sequelize.col('city.name')),
-        { [ Op.like ]: `%${req.query.name}%` }
-      )
+      { livingCost: costParam }
     )
   }
+
+  if (req.query.weather) {
+
+  }
+
 
   const cities = await Cities.findAll({
     include: [ BookingCities, Countries ],
@@ -26,15 +50,8 @@ route.get('/', async (req, res) => {
     order: [
       [ 'score', 'DESC' ]
     ],
-    limit: req.query.limit != null ? +(req.query.limit) : 5
+    limit: req.query.limit != null ? +(req.query.limit) : 8
   })
-
-  // Cities that start with are more preferred
-  if (req.query.name) {
-    cities.sort((c1, c2) =>
-      c1.name.toLowerCase().indexOf(req.query.name) - c2.name.toLowerCase().indexOf(req.query.name)
-    )
-  }
 
   // Strip out cities with no Booking.com ids
   const bookingEnabledCities = cities.filter(c => (c.booking_cities.length > 0))

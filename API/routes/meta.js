@@ -21,9 +21,9 @@ route.get('/selections', async (req, res) => {
         type: 'weather',
         title: 'Weather',
         options: [
-          {value: 'cold', title: '❄️'},
-          {value: 'warm', title: '☀️'},
-          {value: 'mild', title: '🌥'}
+          {value: 'cold', title: '❄️ Cold'},
+          {value: 'warm', title: '☀️ Warm'},
+          {value: 'mild', title: '🌥 Mild'}
         ]
       },
       {
