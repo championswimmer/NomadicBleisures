@@ -3,6 +3,7 @@ const { Op } = Sequelize
 const { Cities, BookingCities, Countries } = require('../db')
 const { Router } = require('express')
 const { getCoworksOfCity } = require('../controllers/coworks')
+const { getHotelsByBookingCityId } = require('../controllers/hotels')
 
 
 const route = Router()
@@ -107,10 +108,11 @@ route.get('/', async (req, res) => {
 
   for (const bec of bookingEnabledCities) {
     const coworks = await getCoworksOfCity(bec.id)
+    const hotels = await getHotelsByBookingCityId(bec.booking_cities[0].id)
     bec.combos = [
-      {cowork: coworks[0]},
-      {cowork: coworks[1]},
-      {cowork: coworks[2]}]
+      {hotel: hotels.data[0], cowork: coworks[0]},
+      {hotel: hotels.data[1], cowork: coworks[1]},
+      {hotel: hotels.data[2], cowork: coworks[2]}]
 
   }
 

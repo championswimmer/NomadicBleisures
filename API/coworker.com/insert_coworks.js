@@ -10,7 +10,7 @@ async function insert() {
 
 
   for (let cw of coworks) {
-    if ((cw.work_space_id - 3060) < 0) continue
+    if ((cw.work_space_id - 4190) < 0) continue
 
     const cwx = await Coworks.findOne({
       where: { id: cw.work_space_id }
