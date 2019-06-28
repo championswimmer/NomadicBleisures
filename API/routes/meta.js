@@ -21,9 +21,9 @@ route.get('/selections', async (req, res) => {
         type: 'weather',
         title: 'Weather',
         options: [
-          {value: 'cold', title: '❄️'},
-          {value: 'warm', title: '☀️'},
-          {value: 'mild', title: '🌥'}
+          {value: 'cold', title: '❄️ Cold'},
+          {value: 'warm', title: '☀️ Warm'},
+          {value: 'mild', title: '🌥 Mild'}
         ]
       },
       {
@@ -39,7 +39,9 @@ route.get('/selections', async (req, res) => {
     ],
     options: [
       {type: 'aqi', title: 'Clean Air 🍃'},
-      {type: 'internet', title: 'Fast Internet 🔌'}
+      {type: 'internet', title: 'Fast Internet 🔌'},
+      {type: 'high_nomad', title: 'Preferred by Nomads 🧳'},
+      {type: 'low_pop', title: 'Low Population 👨‍👩‍👧‍👦'}
     ]
   })
 

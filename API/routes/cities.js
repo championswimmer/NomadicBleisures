@@ -8,6 +8,7 @@ const route = Router()
 route.get('/', async (req, res) => {
   const whereArr = []
 
+  // Query by name
   if (req.query.name) {
     whereArr.push(
       Sequelize.where(
@@ -17,14 +18,13 @@ route.get('/', async (req, res) => {
     )
   }
 
-
   const cities = await Cities.findAll({
     include: [ BookingCities, Countries ],
     where: {
       [ Op.and ]: whereArr
     },
     order: [
-      ['score', 'DESC']
+      [ 'score', 'DESC' ]
     ],
     limit: req.query.limit != null ? +(req.query.limit) : 5
   })
