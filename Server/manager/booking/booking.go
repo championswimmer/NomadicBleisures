@@ -49,7 +49,6 @@ func MakeRequest(request Request) (response []map[string]interface{}, err error)
 	}
 	r := make(map[string][]map[string]interface{})
 	json.Unmarshal(body, &r)
-	logrus.Info(r)
 	response = r["result"]
 	return
 }
