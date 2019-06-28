@@ -105,14 +105,25 @@ route.get('/', async (req, res) => {
   // Strip out cities with no Booking.com ids
   const bookingEnabledCities = cities.filter(c => (c.booking_cities.length > 0)).map(x => x.dataValues)
 
-
+  const coworksPromises = []
+  const hotelsPromises = []
   for (const bec of bookingEnabledCities) {
-    const coworks = await getCoworksOfCity(bec.id)
-    const hotels = await getHotelsByBookingCityId(bec.booking_cities[0].id)
+    coworksPromises.push(getCoworksOfCity(bec.id))
+    hotelsPromises.push(getHotelsByBookingCityId(bec.booking_cities[ 0 ].id))
+  }
+  const allCoworks = await Promise.all(coworksPromises)
+  const allHotels = await Promise.all(hotelsPromises)
+
+
+  for (let i = 0; i < bookingEnabledCities.length; i++) {
+    const bec = bookingEnabledCities[i]
+
+    const coworks = allCoworks[i]
+    const hotels = allHotels[i]
     bec.combos = [
-      {hotel: hotels.data[0], cowork: coworks[0]},
-      {hotel: hotels.data[1], cowork: coworks[1]},
-      {hotel: hotels.data[2], cowork: coworks[2]}]
+      { hotel: hotels.data[ 0 ], cowork: coworks[ 0 ] },
+      { hotel: hotels.data[ 1 ], cowork: coworks[ 1 ] },
+      { hotel: hotels.data[ 2 ], cowork: coworks[ 2 ] } ]
 
   }
 
