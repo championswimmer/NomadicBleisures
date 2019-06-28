@@ -14,7 +14,7 @@ const db = new Sequelize({
     charset: 'utf8',
     collate: 'utf8_general_ci',
     timestamps: false
-  },
+  }
 })
 
 db.authenticate().then(() => {
@@ -49,7 +49,7 @@ const Cities = db.define('city', {
   tempCfeels: Sequelize.INTEGER,
   image: Sequelize.STRING,
   score: Sequelize.FLOAT,
-  weatherEmoji: Sequelize.STRING,
+  weatherEmoji: Sequelize.STRING
 }, {
   timestamps: false
 })
@@ -69,9 +69,37 @@ const BookingCities = db.define('booking_city', {
 BookingCities.belongsTo(Cities)
 Cities.hasMany(BookingCities)
 
+const Coworks = db.define('coworking_places', {
+  id: { type: Sequelize.INTEGER, primaryKey: true },
+  city_id: Sequelize.INTEGER,
+  name: Sequelize.STRING,
+  m_price: {
+    type: Sequelize.INTEGER,
+    get() {
+      const val = this.getDataValue('m_price')
+      return val ? val.toString() : "0"
+    }
+  },
+  d_price: Sequelize.INTEGER,
+  currency: Sequelize.STRING(4),
+  rating: Sequelize.DECIMAL,
+  image: {
+    field: 'image_url',
+    type: Sequelize.STRING
+  },
+  latitude: Sequelize.DECIMAL(10, 8),
+  longitude: Sequelize.DECIMAL(11, 8),
+}, {
+  freezeTableName: true
+})
+
+Coworks.belongsTo(Cities, { foreignKey: 'city_id' })
+Cities.hasMany(Coworks, { foreignKey: 'city_id' })
+
 module.exports = {
   db,
   Countries,
   Cities,
-  BookingCities
+  BookingCities,
+  Coworks
 }

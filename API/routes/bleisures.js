@@ -2,6 +2,8 @@ const Sequelize = require('sequelize')
 const { Op } = Sequelize
 const { Cities, BookingCities, Countries } = require('../db')
 const { Router } = require('express')
+const { getCoworksOfCity } = require('../controllers/coworks')
+const { getHotelsByBookingCityId } = require('../controllers/hotels')
 
 
 const route = Router()
@@ -101,9 +103,34 @@ route.get('/', async (req, res) => {
   })
 
   // Strip out cities with no Booking.com ids
-  const bookingEnabledCities = cities.filter(c => (c.booking_cities.length > 0))
+  const bookingEnabledCities = cities.filter(c => (c.booking_cities.length > 0)).map(x => x.dataValues)
 
-  res.send(bookingEnabledCities)
+  const coworksPromises = []
+  const hotelsPromises = []
+  for (const bec of bookingEnabledCities) {
+    coworksPromises.push(getCoworksOfCity(bec.id))
+    hotelsPromises.push(getHotelsByBookingCityId(bec.booking_cities[ 0 ].id))
+  }
+  const allCoworks = await Promise.all(coworksPromises)
+  const allHotels = await Promise.all(hotelsPromises)
+
+
+  for (let i = 0; i < bookingEnabledCities.length; i++) {
+    const bec = bookingEnabledCities[i]
+
+    const coworks = allCoworks[i]
+    const hotels = allHotels[i]
+    if (hotels.data == null) hotels.data = []
+    bec.combos = [
+      { hotel: hotels.data[ 0 ], coworking: coworks[ 0 ] },
+      { hotel: hotels.data[ 1 ], coworking: coworks[ 1 ] },
+      { hotel: hotels.data[ 2 ], coworking: coworks[ 2 ] } ]
+
+  }
+
+  res.send(bookingEnabledCities.filter(bcbc => {
+    return bcbc.combos[0].coworking != null
+  }))
 })
 
 module.exports = { route }

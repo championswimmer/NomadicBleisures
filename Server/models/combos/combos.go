@@ -6,6 +6,8 @@ import (
 	"github.com/NomadicBleisures/Server/manager/booking"
 	"github.com/NomadicBleisures/Server/models/coworking"
 	"github.com/NomadicBleisures/Server/models/hotel"
+	"time"
+	"math/rand"
 )
 
 type Combo struct {
@@ -28,6 +30,10 @@ func Get(cityID string) ([]Combo, error) {
 		Method: "GET",
 	}
 	hotelsData, _ := booking.MakeRequest(request)
+	rand.Seed(time.Now().UnixNano())
+	min := 2
+	max := 9
+
 	for i, hotelItem := range hotelsData {
 		h := hotel.HotelData{}
 		hotelData := hotelItem["hotel_data"].(map[string]interface{})
@@ -35,10 +41,12 @@ func Get(cityID string) ([]Combo, error) {
 		hotelPhotos := hotelData["hotel_photos"].([]interface{})
 		hotelImage := hotelPhotos[0].(map[string]interface{})
 		h.Image = hotelImage["url_original"].(string)
-		h.Rating = hotelData["review_score"].(float64)
+		if hotelData["review_score"] != nil {
+			h.Rating = hotelData["review_score"].(float64)
+		}
 		h.DeepLink = hotelData["deep_link_url"].(string)
 		h.Currency = hotelData["currency"].(string)
-		h.NumCoworking = (len(hotelsData) - i + 1) * 5 / 3
+		h.NumCoworking = rand.Intn(max-min) + min
 		roomData := hotelItem["room_data"].([]interface{})
 		for _, room := range roomData {
 			r := room.(map[string]interface{})
