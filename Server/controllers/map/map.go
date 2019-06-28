@@ -25,14 +25,14 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	}
 	lat, err := strconv.ParseFloat(latStr, 64);
 	lng, err := strconv.ParseFloat(lngStr, 64);
-	radius, err := strconv.Atoi(radiusStr)
+	radius, err := strconv.ParseFloat(radiusStr, 64)
 	_, cityID := _map.Get(lat, lng)
 	logrus.Info(cityID)
 	bookingCities := _map.GetBookingCityIDs(cityID)
 	logrus.Info("BC: ", bookingCities)
 	//bookingCitiesStr := strings.Trim(strings.Join(strings.Fields(fmt.Sprint(bookingCities)), ","), "[]")
 	logrus.Info("HOT:", lat, lng, radius)
-	hotelIDs := GetHotels(lat, lng, radius)
+	hotelIDs := GetHotels(lat, lng, int(radius))
 	logrus.Info("HOT:", hotelIDs)
 	hotelsStr := strings.Trim(strings.Join(strings.Fields(fmt.Sprint(hotelIDs)), ","), "[]")
 	logrus.Info(hotelsStr)
