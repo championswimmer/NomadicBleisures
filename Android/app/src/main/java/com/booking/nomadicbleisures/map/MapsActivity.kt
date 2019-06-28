@@ -53,9 +53,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             results
                         )
                         ApiClient.mapSearchApi.getMapSearchResults(
-                            latLng.latitude,
-                            latLng.longitude,
-                            results[0]
+                            amsterdam.latitude,
+                            amsterdam.longitude,
+                            0.5f
                         ).enqueue(object : Callback<MapSearchResponse> {
                             override fun onFailure(call: Call<MapSearchResponse>, t: Throwable) {
 

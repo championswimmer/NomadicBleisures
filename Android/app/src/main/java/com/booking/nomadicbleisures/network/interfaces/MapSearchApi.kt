@@ -13,7 +13,7 @@ interface MapSearchApi {
     @GET("map-search")
     fun getMapSearchResults(
         @Query("lat") lat: Double,
-        @Query("lon") lon: Double,
+        @Query("lng") lon: Double,
         @Query("radius") radius: Float
     ): Call<MapSearchResponse>
 }

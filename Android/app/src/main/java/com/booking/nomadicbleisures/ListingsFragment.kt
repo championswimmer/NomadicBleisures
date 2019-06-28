@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.booking.nomadicbleisures.models.Coworking
 import com.booking.nomadicbleisures.models.Hotel
 import com.booking.nomadicbleisures.network.ApiClient
+import com.booking.nomadicbleisures.network.ApiClient2
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_listings.*
 import kotlinx.android.synthetic.main.fragment_listings.view.*
@@ -53,7 +54,7 @@ class ListingsFragment : Fragment() {
         cityId = arguments!!.getString("cityId")!!
         when (searchType) {
             Companion.SearchType.COWORKING -> {
-                ApiClient.coworkingApi.getCoworkingSpaces(cityId).enqueue(object: Callback<List<Coworking>> {
+                ApiClient2.coworkingApi.getCoworkingSpaces(cityId).enqueue(object: Callback<List<Coworking>> {
                     override fun onResponse(call: Call<List<Coworking>>, response: Response<List<Coworking>>) {
                         rootView.progressBar.visibility = View.GONE
                         rootView.llListings.visibility = View.VISIBLE
@@ -102,9 +103,11 @@ class ListingsFragment : Fragment() {
                     setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     addToBackStack(null)
                     commit()
+                    CheckoutActivity.hotel = hotel
                 }
             }
             listingView.setOnClickListener {
+                CheckoutActivity.hotel = hotel
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW, Uri.parse(hotel.deeplink)
@@ -120,11 +123,14 @@ class ListingsFragment : Fragment() {
         for (coworking in coworkingSpaces) {
             val listingView = LayoutInflater.from(activity!!).inflate(R.layout.item_listing, llListings, false)
             listingView.listingTitle.text = coworking.name
-            listingView.listingPrice.text = "${coworking.currency} ${coworking.monthlyPrice.toFloat().toInt()} /mo"
+            coworking.monthlyPrice?.let {
+                listingView.listingPrice.text = "${coworking.currency} ${coworking.monthlyPrice.toFloat().toInt()} /mo"
+            }
             listingView.listingRating.text = "${Math.round(coworking.rating * 10.0) / 10.0}"
-            listingView.listingSubtitle.text = "${coworking.numHotels} hotels nearby"
+            listingView.listingSubtitle.text = "See hotels nearby"
             Picasso.get().load(coworking.image).into(listingView.listingImage);
             listingView.setOnClickListener {
+                CheckoutActivity.coworking = coworking
                 activity?.supportFragmentManager?.beginTransaction()?.apply {
                     add(R.id.container, CoworkingDetailFragment.newInstance(coworking))
                     addToBackStack(null)

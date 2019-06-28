@@ -42,7 +42,7 @@ class CityActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         intent!!.getParcelableExtra<NomadCity>("detail").apply {
-            if (bookingCities == null) return
+            if (this == null || bookingCities == null) return
             this@CityActivity.cityId = bookingCities[0].id
             setSupportActionBar(toolbar.apply {
                 title = "$name ${MainActivity.weatherMap[weatherEmoji]} $temperature°C"
@@ -69,7 +69,8 @@ class CityActivity : AppCompatActivity() {
         progressBar.visibility = View.GONE
         for (combo in combos) {
             val comboView = ComboView(this, null)
-            comboView.setup(combo.coworking, combo.hotel)
+            if (combo.coworking != null && combo.hotel != null)
+                comboView.setup(combo.coworking, combo.hotel)
             llComboList.addView(comboView)
         }
     }
