@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.FragmentTransaction
+import com.booking.nomadicbleisures.models.Coworking
 import com.booking.nomadicbleisures.models.Filters
 import com.booking.nomadicbleisures.network.ApiClient2
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -28,6 +29,13 @@ class BuildBleisureFragment : BottomSheetDialogFragment() {
 
     private var rootView: View? = null
 
+    companion object {
+        fun newInstance(selectedDates: String): BuildBleisureFragment {
+            return BuildBleisureFragment().apply {
+                arguments = Bundle().apply { putString("dates", selectedDates) }
+            }
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_build_bleisures, container, false)
@@ -43,7 +51,7 @@ class BuildBleisureFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        selectedDates.text = arguments!!.getString("dates")
         ApiClient2.metaApi.getFilters().enqueue(object : Callback<Filters> {
             override fun onResponse(call: Call<Filters>, response: Response<Filters>) {
                 response.body()?.let {bleisureFilter ->

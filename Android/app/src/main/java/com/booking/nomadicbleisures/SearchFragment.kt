@@ -22,6 +22,8 @@ import com.booking.nomadicbleisures.network.ApiClient2
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.DateFormatSymbols
+import java.util.*
 
 class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
@@ -31,6 +33,10 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     var destinations: List<NomadCity> = arrayListOf()
     var selectedDestination: NomadCity? = null
+
+    var startDate: Calendar = Calendar.getInstance()
+    var endDate: Calendar = Calendar.getInstance()
+    var selectedDates: String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_search, container, false)
@@ -76,7 +82,7 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         et_dates.setOnClickListener {
             et_dates.text = null
-            DatePickerDialog(context, this, 2019, 3, 14).show()
+            DatePickerDialog(context, this, 2019, 6, 28).show()
         }
 
         btn_search.setOnClickListener {
@@ -97,17 +103,21 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         }
 
         btn_build.setOnClickListener {
-            BuildBleisureFragment().show(childFragmentManager, "Build")
+            BuildBleisureFragment.newInstance(selectedDates).show(childFragmentManager, "Build")
         }
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         if (flag == 0) {
-            DatePickerDialog(context, this, 2019, 3, 15).show()
+            startDate.set(year, month, dayOfMonth)
+            DatePickerDialog(context, this, 2019, 7, 28).show()
             flag = 1
         } else {
             flag = 0
-            et_dates.setText("14 Apr - 13 May")
+            endDate.set(year, month, dayOfMonth)
+            selectedDates = "${startDate.get(Calendar.DATE)} ${getMonth(startDate.get(Calendar.MONTH))} " +
+                    "- ${endDate.get(Calendar.DATE)} ${getMonth(endDate.get(java.util.Calendar.MONTH))}"
+            et_dates.setText(selectedDates)
         }
     }
 
@@ -155,5 +165,9 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             llCityList.addView(cityView)
         }
 
+    }
+
+    fun getMonth(month: Int): String {
+        return DateFormatSymbols().getMonths()[month - 1]
     }
 }
