@@ -123,7 +123,7 @@ class BuildBleisureFragment : BottomSheetDialogFragment() {
         for (selection in selections) {
             for (filter in selection.filters) {
                 if (filter.selected) {
-                    queryString += "${if (count == 0) "?" else "&" }${selection.type}=${filter.value}"
+                    queryString += "${if (count == 0) "" else "&" }${selection.type}=${filter.value}"
                     count++
                 }
             }

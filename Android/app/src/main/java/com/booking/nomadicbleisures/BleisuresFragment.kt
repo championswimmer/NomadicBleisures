@@ -40,16 +40,12 @@ class BleisuresFragment: Fragment() {
         rvBleisures.layoutManager = LinearLayoutManager(activity)
         rvBleisures.adapter = adapter
 
-        val listType = object : TypeToken<List<NomadCity>>() {}.type
-        val cityList = Gson().fromJson(IOUtils.loadJSONFromAsset(activity!!, "bleisures.json"), listType)
-                as List<NomadCity>
-
-        adapter.updateData(cityList)
-        progressBar.visibility = View.GONE
-
-        ApiClient2.bleisuresApi.getBlesiures(query = arguments!!.getString("query")).enqueue(object : Callback<List<NomadCity>> {
+        val query = arguments!!.getString("query")
+        val url = "http://178.128.249.124:4242/bleisures?" + query
+        ApiClient2.bleisuresApi.getBlesiures(url).enqueue(object : Callback<List<NomadCity>> {
             override fun onResponse(call: Call<List<NomadCity>>, response: Response<List<NomadCity>>) {
                 response.body()?.let {
+                    progressBar.visibility = View.GONE
                     adapter.updateData(it)
                 }
             }

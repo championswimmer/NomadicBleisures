@@ -29,6 +29,9 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     var flag = 0
 
+    var destinations: List<NomadCity> = arrayListOf()
+    var selectedDestination: NomadCity? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_search, container, false)
         return rootView
@@ -58,7 +61,6 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                         override fun onResponse(call: Call<List<NomadCity>>, response: Response<List<NomadCity>>) {
                             response.body()?.let {
                                 showCityAutocomplete(it)
-
                             }
                         }
 
@@ -68,22 +70,29 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             }
         }
 
+        et_destination.setOnItemClickListener { parent, view, position, id ->
+            this.selectedDestination = destinations.get(position)
+        }
+
         et_dates.setOnClickListener {
             et_dates.text = null
             DatePickerDialog(context, this, 2019, 3, 14).show()
         }
 
         btn_search.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                add(
-                    R.id.container, ListingsFragment.newInstance(
-                        if (toggle_switch.isChecked) ListingsFragment.Companion.SearchType.COWORKING
-                        else ListingsFragment.Companion.SearchType.HOTELS
+            selectedDestination?.bookingCities?.let {
+                activity?.supportFragmentManager?.beginTransaction()?.apply {
+                    add(
+                        R.id.container, ListingsFragment.newInstance(
+                            if (toggle_switch.isChecked) ListingsFragment.Companion.SearchType.COWORKING
+                            else ListingsFragment.Companion.SearchType.HOTELS,
+                            it[0].id
+                        )
                     )
-                )
-                addToBackStack(null)
-                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                commit()
+                    addToBackStack(null)
+                    setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    commit()
+                }
             }
         }
 
@@ -104,6 +113,7 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
 
     private fun showCityAutocomplete(cityList: List<NomadCity>) {
+        this.destinations = cityList
         val destinations = arrayListOf<String>()
         for (city in cityList) {
             if (city.bookingCities == null) continue
