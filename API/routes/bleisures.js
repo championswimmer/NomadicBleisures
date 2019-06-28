@@ -128,7 +128,9 @@ route.get('/', async (req, res) => {
 
   }
 
-  res.send(bookingEnabledCities)
+  res.send(bookingEnabledCities.filter(bcbc => {
+    return bcbc.combos[0].cowork != null
+  }))
 })
 
 module.exports = { route }
