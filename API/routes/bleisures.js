@@ -120,6 +120,7 @@ route.get('/', async (req, res) => {
 
     const coworks = allCoworks[i]
     const hotels = allHotels[i]
+    if (hotels.data == null) hotels.data = []
     bec.combos = [
       { hotel: hotels.data[ 0 ], cowork: coworks[ 0 ] },
       { hotel: hotels.data[ 1 ], cowork: coworks[ 1 ] },

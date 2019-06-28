@@ -77,7 +77,7 @@ const Coworks = db.define('coworking_places', {
     type: Sequelize.INTEGER,
     get() {
       const val = this.getDataValue('m_price')
-      return val ? val.toString : "0"
+      return val ? val.toString() : "0"
     }
   },
   d_price: Sequelize.INTEGER,
