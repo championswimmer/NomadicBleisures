@@ -12,6 +12,7 @@ import (
 
 func main() {
 	initapp.Init()
+
 	r, err := router.GetRouter()
 	if err != nil {
 		logrus.Panic("STOP")

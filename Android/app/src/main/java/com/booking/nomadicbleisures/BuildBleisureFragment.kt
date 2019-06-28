@@ -6,17 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.FragmentTransaction
 import com.booking.nomadicbleisures.models.Filters
-import com.booking.nomadicbleisures.utils.IOUtils
+import com.booking.nomadicbleisures.network.ApiClient2
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_build_bleisures.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class BuildBleisureFragment : BottomSheetDialogFragment() {
@@ -44,24 +44,20 @@ class BuildBleisureFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val filtersType = object : TypeToken<Filters>() {}.type
-        val bleisureFilter = Gson().fromJson(IOUtils.loadJSONFromAsset(activity!!, "filters.json"), filtersType)
-                as Filters
+        ApiClient2.metaApi.getFilters().enqueue(object : Callback<Filters> {
+            override fun onResponse(call: Call<Filters>, response: Response<Filters>) {
+                response.body()?.let {bleisureFilter ->
+                    selections = bleisureFilter.selections
+                    filters = bleisureFilter.filters
+                    addSelection()
+                }
+            }
 
-        selections = bleisureFilter.selections
-        filters = bleisureFilter.filters
-
-        addSelection()
+            override fun onFailure(call: Call<Filters>, t: Throwable) {}
+        })
 
         btn_search.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(
-                    R.id.container,BleisuresFragment()
-                )
-                addToBackStack(null)
-                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                commit()
-            }
+           searchBleisure()
         }
     }
 
@@ -78,10 +74,11 @@ class BuildBleisureFragment : BottomSheetDialogFragment() {
                             false
                         ).apply {
                             findViewById<Chip>(R.id.chip).apply {
-                                text = filter
+                                text = filter.title
                                 setOnClickListener {
                                     if (currentSelectionIndex < selections.size - 1) {
                                         currentSelectionIndex++
+                                        filter.selected = true
                                         addSelection()
                                     } else {
                                         btn_search.visibility = View.VISIBLE
@@ -109,12 +106,42 @@ class BuildBleisureFragment : BottomSheetDialogFragment() {
                     ).apply {
                         findViewById<Chip>(R.id.chip).apply {
                             text = filter.title
+                            setOnClickListener {
+                                filter.selected = true
+                            }
                         }
                     })
             }
         }
         filter_container.addView(filtersLayout)
         space.visibility = View.GONE
+    }
 
+    private fun searchBleisure() {
+        var queryString = ""
+        var count = 0
+        for (selection in selections) {
+            for (filter in selection.filters) {
+                if (filter.selected) {
+                    queryString += "${if (count == 0) "?" else "&" }${selection.type}=${filter.value}"
+                    count++
+                }
+            }
+        }
+        for (filter in filters) {
+            if (filter.selected) {
+                count++
+                queryString += "&${filter.type}=true"
+            }
+        }
+        activity?.supportFragmentManager?.beginTransaction()?.apply {
+            add(
+                R.id.container, BleisuresFragment.newInstance(queryString)
+            )
+            addToBackStack(null)
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            commit()
+            dismiss()
+        }
     }
 }

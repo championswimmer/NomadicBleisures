@@ -6,18 +6,21 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class NomadCity(@SerializedName("name") val name: String,
-                     @SerializedName("country")val country: String,
-                     @SerializedName("internet_speed")val internetSpeed: Int,
-                     @SerializedName("air_quality_score") val airQualityScore: Float,
-                     @SerializedName("weather_emoji") val weatherEmoji: String,
-                     @SerializedName("temperatureC") val temperature: String,
-                     @SerializedName("temperatureC_feels_like") val temperatureFeels: String,
-                     @SerializedName("nomad_score") val nomadScore: Float,
-                     @SerializedName("safety_level") val safetyLevel: Float,
-                     @SerializedName("short_term_cost_in_usd") val price: Int,
+                     @SerializedName("country")val country: Country,
+                     @SerializedName("internetMbps")val internetSpeed: Int,
+                     @SerializedName("aqi") val airQualityScore: Float,
+                     @SerializedName("weatherEmoji") val weatherEmoji: String,
+                     @SerializedName("tempC") val temperature: String,
+                     @SerializedName("tempCfeels") val temperatureFeels: String,
+                     @SerializedName("score") val nomadScore: Float,
+                     @SerializedName("safetyLevel") val safetyLevel: Float,
+                     @SerializedName("livingCost") val price: Int,
                      @SerializedName("image") val image: String,
-                     @SerializedName("city_id") val cityId: String,
                      @SerializedName("combos") var combos: List<Combo>? = arrayListOf(),
-                     @SerializedName("recommended") val recommended: Boolean): Parcelable {
+                     @SerializedName("recommended") val recommended: Boolean,
+                     @SerializedName("booking_cities") val bookingCities: List<BookingCity>? = arrayListOf()): Parcelable {
+
+    @Parcelize
+    data class Country(@SerializedName("name") val name: String): Parcelable
 
 }

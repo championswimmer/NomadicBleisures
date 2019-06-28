@@ -2,7 +2,21 @@ package coworking
 
 import (
 	"github.com/NomadicBleisures/Server/manager/coworker"
+	"github.com/NomadicBleisures/Server/models/hotel"
 )
+
+type Coworking struct {
+	Country           string
+	City              string
+	Name              string
+	Curr              string
+	MPrice            int
+	DPrice            int
+	Rating            float32
+	Url               string
+	Image             string
+	RecommendedHotels []hotel.HotelData
+}
 
 func Get(cityID string) ([]map[string]interface{}, error) {
 	photoURL := "https://coworker.imgix.net/photos/"
@@ -16,4 +30,8 @@ func Get(cityID string) ([]map[string]interface{}, error) {
 		c["image"] = photoURL + c["coworkspace_url"].(string) + c["main_image"].(string)
 	}
 	return coworkingPlaces, nil
+}
+
+func Book() {
+
 }

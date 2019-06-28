@@ -1,12 +1,27 @@
 package com.booking.nomadicbleisures.models
 
-data class Filters(val selections: List<Selection>,
-                   val filters: List<Filter>) {
+import com.google.gson.annotations.SerializedName
 
-    data class Selection(val title: String,
-                         val type: String,
-                         val filters: List<String>)
+data class Filters(
+    @SerializedName("selections") val selections: List<Selection>,
+    @SerializedName("options") val filters: List<Filter>
+) {
 
-    data class Filter(val type: String,
-                      val title: String)
+    data class Selection(
+        val title: String,
+        val type: String,
+        @SerializedName("options") val filters: List<Option>
+    )
+
+    data class Filter(
+        val type: String,
+        val title: String,
+        var selected: Boolean = false
+    )
+
+    data class Option(
+        @SerializedName("value") val value: String,
+        @SerializedName("title") val title: String,
+        var selected: Boolean = false
+    )
 }
