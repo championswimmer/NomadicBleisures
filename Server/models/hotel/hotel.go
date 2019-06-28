@@ -110,7 +110,7 @@ func Get(cityID string, extras string) ([]HotelData, error) {
 func GetHotelsWithID(hotelIDs string, extras string) ([]HotelData, error) {
 	extras = "hotel_description,hotel_photos,hotel_info,room_info"
 	request := booking.Request{
-		Url:    fmt.Sprintf("https://distribution-xml.booking.com/2.0/json/hotels?"+"hotel_ids=%s&extras=%s&rows=10", hotelIDs, extras),
+		Url:    fmt.Sprintf("https://distribution-xml.booking.com/2.0/json/hotels?"+"hotel_ids=%s&extras=%s&rows=25", hotelIDs, extras),
 		Method: "GET",
 	}
 	var hotelsArr []HotelData

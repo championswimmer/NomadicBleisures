@@ -52,7 +52,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetHotels(lat float64, lng float64, radius float64) ([]uint) {
-	url := fmt.Sprintf("https://distribution-xml.booking.com/2.0/json/hotelAvailability?latitude=%f&longitude=%f&radius=%f&checkin=2019-09-01&checkout=2019-09-05&room1=A&rows=10", lat, lng, radius)
+	url := fmt.Sprintf("https://distribution-xml.booking.com/2.0/json/hotelAvailability?latitude=%f&longitude=%f&radius=%f&checkin=2019-09-01&checkout=2019-09-05&room1=A&rows=25", lat, lng, radius)
 	logrus.Info(url)
 	request := booking.Request{
 		//Url:    fmt.Sprintf("https://distribution-xml.booking.com/2.0/json/hotelAvailability?latitude=%f&longitude=%f&radius=%d&checkin=2019-09-01&checkout=2019-09-02&room1=A&rows=10", lat, lng, radius),
