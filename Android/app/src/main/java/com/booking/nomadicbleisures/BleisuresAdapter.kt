@@ -57,12 +57,13 @@ class BleisuresAdapter : RecyclerView.Adapter<BleisuresAdapter.ViewHolder>() {
 
                     city.combos?.let {
                         for (combo in it) {
-                            cityCombos.addView(
-                                ComboView(
-                                    context,
-                                    null,
-                                    R.layout.item_combo_compact
-                                ).apply { setup(combo.coworking, combo.hotel) })
+                            if (combo.coworking != null && combo.hotel != null) {
+                                cityCombos.addView(
+                                    ComboView(
+                                        context,
+                                        null
+                                    ).apply { setup(combo.coworking, combo.hotel, R.layout.item_combo_compact) })
+                            }
                         }
                     }
 

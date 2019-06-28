@@ -11,14 +11,10 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_combo.view.*
 import java.util.*
 
-class ComboView(val ctx: Context, val attrs: AttributeSet? = null, val layoutId: Int = R.layout.item_combo): FrameLayout(ctx, attrs) {
+class ComboView(val ctx: Context, val attrs: AttributeSet?): FrameLayout(ctx, attrs) {
 
     private lateinit var rootview: View
     private val r = Random()
-
-    init {
-        LayoutInflater.from(ctx).inflate(layoutId, this, true)
-    }
 
     val discountTexts = arrayOf(
         "More than ${(r.nextInt(2) * 10) + 10}% below usual prices",
@@ -26,11 +22,14 @@ class ComboView(val ctx: Context, val attrs: AttributeSet? = null, val layoutId:
         "Valid only for today"
     )
 
-    fun setup(coworking: Coworking, hotel: Hotel) {
+    fun setup(coworking: Coworking, hotel: Hotel, layoutId: Int = R.layout.item_combo) {
+        LayoutInflater.from(ctx).inflate(layoutId, this, true)
         Picasso.get().load(coworking.image).into(this.cwImage)
         this.cwTitle?.text = coworking.name
         this.cwRating?.text = coworking.rating.toString()
-        this.cwPrice?.text = "${coworking.currency} ${coworking.monthlyPrice.toFloat().toInt()} /mo"
+        coworking.monthlyPrice?.let {
+            this.cwPrice?.text = "${coworking.currency} ${coworking.monthlyPrice} /mo"
+        }
         this.hotelImage?.let {
             Picasso.get().load(hotel.image).into(it)
         }

@@ -17,7 +17,7 @@
             android:layout_gravity="center_horizontal"/>
 
     <LinearLayout
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
@@ -140,12 +140,14 @@
             android:elevation="5dp"
             app:cardBackgroundColor="@android:color/holo_orange_dark"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
         <TextView
                 android:padding="4dp"
                 android:id="@+id/discountText"
                 android:textColor="@android:color/white"
+                android:visibility="gone"
                 android:text="More than 20% below usual prices"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -157,7 +159,8 @@
             app:cardCornerRadius="4dp"
             app:cardBackgroundColor="@color/colorPrimary"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
         <TextView
                 android:clickable="true"
@@ -166,6 +169,7 @@
                 android:textSize="18sp"
                 android:textColor="@android:color/white"
                 android:text="Book Now"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
     </com.google.android.material.card.MaterialCardView>
