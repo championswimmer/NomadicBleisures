@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"time"
+	"github.com/sirupsen/logrus"
 )
 
 var (
@@ -29,6 +30,7 @@ func GetClient() *http.Client {
 func MakeRequest(request Request) (response []map[string]interface{}, err error) {
 	client := GetClient()
 	if err != nil {
+		logrus.Error(err)
 		return response, err
 	}
 	url := request.Url
@@ -37,6 +39,7 @@ func MakeRequest(request Request) (response []map[string]interface{}, err error)
 	req.Header.Add("Authorization", "Basic aGFja2F0b25fdGVhbV9wcmVtcGFsOlRzekNXU0dnWk5FdDZ0Sg==")
 	resp, err := client.Do(req)
 	if err != nil {
+		logrus.Error(err)
 		return
 	}
 	defer resp.Body.Close()
@@ -46,7 +49,7 @@ func MakeRequest(request Request) (response []map[string]interface{}, err error)
 	}
 	r := make(map[string][]map[string]interface{})
 	json.Unmarshal(body, &r)
-
+	logrus.Info(r)
 	response = r["result"]
 	return
 }
