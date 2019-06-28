@@ -22,6 +22,7 @@ import retrofit2.Response
 class ListingsFragment : Fragment() {
 
     private lateinit var rootView: View
+    var cityId: String = ApiClient.CITY_ID_MUMBAI
 
     companion object {
 
@@ -31,9 +32,10 @@ class ListingsFragment : Fragment() {
             HOTELS, COWORKING
         }
 
-        fun newInstance(searchType: SearchType): ListingsFragment {
+        fun newInstance(searchType: SearchType, cityId: String): ListingsFragment {
             return ListingsFragment().apply {
-                arguments = Bundle().apply { putString(SEARCH_TYPE, searchType.name) }
+                arguments = Bundle().apply { putString(SEARCH_TYPE, searchType.name)
+                putString("cityId", cityId)}
             }
         }
     }
@@ -48,9 +50,10 @@ class ListingsFragment : Fragment() {
     }
 
     private fun fetchListings() {
+        cityId = arguments!!.getString("cityId")!!
         when (searchType) {
             Companion.SearchType.COWORKING -> {
-                ApiClient.coworkingApi.getCoworkingSpaces(ApiClient.CITY_ID_MUMBAI).enqueue(object: Callback<List<Coworking>> {
+                ApiClient.coworkingApi.getCoworkingSpaces(cityId).enqueue(object: Callback<List<Coworking>> {
                     override fun onResponse(call: Call<List<Coworking>>, response: Response<List<Coworking>>) {
                         rootView.progressBar.visibility = View.GONE
                         rootView.llListings.visibility = View.VISIBLE
@@ -65,7 +68,7 @@ class ListingsFragment : Fragment() {
                 })
             }
             Companion.SearchType.HOTELS -> {
-                ApiClient.hotelsApi.getHotels(ApiClient.CITY_ID_MUMBAI).enqueue(object: Callback<List<Hotel>> {
+                ApiClient.hotelsApi.getHotels(cityId).enqueue(object: Callback<List<Hotel>> {
                     override fun onResponse(call: Call<List<Hotel>>, response: Response<List<Hotel>>) {
                         rootView.progressBar.visibility = View.GONE
                         rootView.llListings.visibility = View.VISIBLE
@@ -83,14 +86,17 @@ class ListingsFragment : Fragment() {
         for (hotel in hotels) {
             val listingView = LayoutInflater.from(activity!!).inflate(R.layout.item_listing, llListings, false)
             listingView.listingTitle.text = hotel.name
-            listingView.listingPrice.text = "${hotel.currency} ${hotel.price.toFloat().toInt()}"
+            hotel.price?.let {
+                listingView.listingPrice.text = "${hotel.currency} ${hotel.price.toInt()}"
+            }
             listingView.listingRating.text = "${Math.round(hotel.rating * 10.0) / 10.0}"
             listingView.listingSubtitle.text = "${hotel.numCoworking} coworking spaces nearby"
             listingView.listingSubtitle.setOnClickListener {
                 activity?.supportFragmentManager?.beginTransaction()?.apply {
                     add(
                         R.id.container, ListingsFragment.newInstance(
-                            ListingsFragment.Companion.SearchType.COWORKING
+                            ListingsFragment.Companion.SearchType.COWORKING,
+                            cityId
                         )
                     )
                     setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

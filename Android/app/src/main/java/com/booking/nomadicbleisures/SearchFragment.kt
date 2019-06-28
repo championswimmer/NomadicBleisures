@@ -22,12 +22,21 @@ import com.booking.nomadicbleisures.network.ApiClient2
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.DateFormatSymbols
+import java.util.*
 
 class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     lateinit var rootView: View
 
     var flag = 0
+
+    var destinations: List<NomadCity> = arrayListOf()
+    var selectedDestination: NomadCity? = null
+
+    var startDate: Calendar = Calendar.getInstance()
+    var endDate: Calendar = Calendar.getInstance()
+    var selectedDates: String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_search, container, false)
@@ -58,7 +67,6 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                         override fun onResponse(call: Call<List<NomadCity>>, response: Response<List<NomadCity>>) {
                             response.body()?.let {
                                 showCityAutocomplete(it)
-
                             }
                         }
 
@@ -68,42 +76,54 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             }
         }
 
+        et_destination.setOnItemClickListener { parent, view, position, id ->
+            this.selectedDestination = destinations.get(position)
+        }
+
         et_dates.setOnClickListener {
             et_dates.text = null
-            DatePickerDialog(context, this, 2019, 3, 14).show()
+            DatePickerDialog(context, this, 2019, 6, 28).show()
         }
 
         btn_search.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                add(
-                    R.id.container, ListingsFragment.newInstance(
-                        if (toggle_switch.isChecked) ListingsFragment.Companion.SearchType.COWORKING
-                        else ListingsFragment.Companion.SearchType.HOTELS
+            selectedDestination?.bookingCities?.let {
+                activity?.supportFragmentManager?.beginTransaction()?.apply {
+                    add(
+                        R.id.container, ListingsFragment.newInstance(
+                            if (toggle_switch.isChecked) ListingsFragment.Companion.SearchType.COWORKING
+                            else ListingsFragment.Companion.SearchType.HOTELS,
+                            it[0].id
+                        )
                     )
-                )
-                addToBackStack(null)
-                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                commit()
+                    addToBackStack(null)
+                    setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    commit()
+                }
             }
         }
 
         btn_build.setOnClickListener {
-            BuildBleisureFragment().show(childFragmentManager, "Build")
+            BuildBleisureFragment.newInstance(selectedDates).show(childFragmentManager, "Build")
         }
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         if (flag == 0) {
-            DatePickerDialog(context, this, 2019, 3, 15).show()
+            startDate.set(year, month, dayOfMonth)
+            DatePickerDialog(context, this, 2019, 7, 28).show()
             flag = 1
         } else {
             flag = 0
-            et_dates.setText("14 Apr - 13 May")
+            endDate.set(year, month, dayOfMonth)
+            selectedDates = "${startDate.get(Calendar.DATE)} ${getMonth(startDate.get(Calendar.MONTH))} " +
+                    "- ${endDate.get(Calendar.DATE)} ${getMonth(endDate.get(java.util.Calendar.MONTH))}"
+            et_dates.setText(selectedDates)
         }
     }
 
 
     private fun showCityAutocomplete(cityList: List<NomadCity>) {
+        this.destinations = cityList
         val destinations = arrayListOf<String>()
         for (city in cityList) {
             if (city.bookingCities == null) continue
@@ -145,5 +165,9 @@ class SearchFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             llCityList.addView(cityView)
         }
 
+    }
+
+    fun getMonth(month: Int): String {
+        return DateFormatSymbols().getMonths()[month - 1]
     }
 }

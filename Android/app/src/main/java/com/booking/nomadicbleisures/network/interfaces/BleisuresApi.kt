@@ -7,10 +7,11 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.Url
 
 interface BleisuresApi {
 
-    @GET("bleisures{queryString}")
-    fun getBlesiures(@Path(value = "queryString") query: String): Call<List<NomadCity>>
+    @GET
+    fun getBlesiures(@Url url: String): Call<List<NomadCity>>
 
 }

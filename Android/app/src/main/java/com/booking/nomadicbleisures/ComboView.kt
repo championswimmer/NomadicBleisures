@@ -35,7 +35,9 @@ class ComboView(val ctx: Context, val attrs: AttributeSet? = null, val layoutId:
             Picasso.get().load(hotel.image).into(it)
         }
         this.hotelTitle?.text = hotel.name
-        this.hotelPrice?.text = "${hotel.currency} ${hotel.price.toFloat().toInt()}"
+        hotel.price?.let {
+            this.hotelPrice?.text = "${hotel.currency} ${hotel.price.toInt()}"
+        }
         this.hotelRating?.text = hotel.rating.toString()
         this.discountText?.text = discountTexts[r.nextInt(3)]
     }

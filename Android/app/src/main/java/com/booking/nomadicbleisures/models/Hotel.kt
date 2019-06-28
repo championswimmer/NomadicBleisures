@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 data class Hotel(@SerializedName("image") val image: String,
                  @SerializedName("name") val name: String,
                  @SerializedName("rating") val rating: Float,
-                 @SerializedName("price") val price: String,
+                 @SerializedName("price") val price: Float?,
                  @SerializedName("currency") val currency: String,
                  @SerializedName("deeplink") val deeplink: String,
                  @SerializedName("num_coworking") val numCoworking: Int): Parcelable

@@ -84,7 +84,7 @@ class BleisuresAdapter : RecyclerView.Adapter<BleisuresAdapter.ViewHolder>() {
             }
             VIEW_TYPE_TITLE_RECOMMENDED -> {
                 holder.rootView.apply {
-                    title.text = "Recommended nomadic bleisures"
+                    title.text = "Recommended nomadic bleisure"
                 }
             }
             VIEW_TYPE_TITLE_OTHER -> {
@@ -96,7 +96,7 @@ class BleisuresAdapter : RecyclerView.Adapter<BleisuresAdapter.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return items.size + 2
+        return if (items.isEmpty()) 0 else items.size + 2
     }
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
