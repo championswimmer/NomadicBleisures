@@ -31,4 +31,5 @@ object ApiClient {
     val combosApi = retrofit.create(CombosApi::class.java)
     val bleisuresApi = retrofit.create(BleisuresApi::class.java)
     val citiesApi = retrofit.create(CitiesApi::class.java)
+    val mapSearchApi = retrofit.create(MapSearchApi::class.java)
 }
