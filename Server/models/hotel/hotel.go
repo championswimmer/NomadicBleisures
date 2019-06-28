@@ -117,7 +117,9 @@ func GetHotelsWithID(hotelIDs string, extras string) ([]HotelData, error) {
 		hotelPhotos := hotelData["hotel_photos"].([]interface{})
 		hotelImage := hotelPhotos[0].(map[string]interface{})
 		h.Image = hotelImage["url_original"].(string)
-		h.Rating = hotelData["review_score"].(float64)
+		if hotelData["review_score"] != nil {
+			h.Rating = hotelData["review_score"].(float64)
+		}
 		h.DeepLink = hotelData["deep_link_url"].(string)
 		h.Currency = hotelData["currency"].(string)
 		h.NumCoworking = (len(hotelsData) - i + 1) * 5 / 3
